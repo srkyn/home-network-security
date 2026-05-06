@@ -104,7 +104,7 @@ Use this as a recurring review list when maintaining the environment:
 - Confirm LAN clients receive the intended DHCP settings.
 - Confirm LAN clients use the intended DNS path.
 - Review DNS filtering effectiveness and false positives.
-- Check IDS/IPS alerts for repeated noise, blocked activity, and tuning opportunities.
+- If IDS/IPS is enabled later, check alerts for repeated noise, blocked activity, and tuning opportunities.
 - Confirm backups exist and are stored securely.
 - Verify firmware/plugin updates are applied on a controlled schedule.
 - Review documentation after meaningful network changes.
