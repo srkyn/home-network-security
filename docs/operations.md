@@ -5,8 +5,9 @@ This document captures recurring maintenance and review habits for the OPNsense 
 ## Weekly Review
 
 - Review firewall log denies for repeated unexpected traffic.
-- Review DNS blocks and allowlist changes.
-- Check IDS/IPS alerts for new repeated patterns.
+- Review CrowdSec decisions/blocklist behavior.
+- Confirm Unbound and Dnsmasq are healthy.
+- Check IDS/IPS alerts only after IDS/IPS is enabled.
 - Confirm no temporary firewall rules were left open.
 - Note any network changes worth documenting.
 
@@ -15,7 +16,8 @@ This document captures recurring maintenance and review habits for the OPNsense 
 - Check OPNsense firmware and plugin updates.
 - Export an encrypted/safely stored configuration backup.
 - Review inbound NAT and WAN-facing rules.
-- Review guest and lab isolation assumptions.
+- Review whether the single-LAN design still matches the risk model.
+- Review CrowdSec agent/LAPI/firewall bouncer status.
 - Confirm administrative accounts and access paths still make sense.
 
 ## Change Process
@@ -35,11 +37,11 @@ For meaningful firewall changes, document:
 
 Use simple tests after rule or segmentation changes:
 
-- From guest, confirm trusted LAN systems are not reachable.
-- From lab, confirm only intended infrastructure services are reachable.
 - From trusted LAN, confirm DNS resolution uses the intended resolver.
+- From trusted LAN, confirm direct DNS bypass attempts are blocked when not pointed at the approved resolver.
 - From outside the network, confirm firewall administration is not exposed.
-- After IDS/IPS tuning, confirm normal browsing and updates still work.
+- After IDS/IPS is enabled/tuned, confirm normal browsing and updates still work.
+- After traffic shaping changes, confirm latency-sensitive traffic behaves as intended.
 
 ## Backup Handling
 

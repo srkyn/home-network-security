@@ -1,38 +1,42 @@
 # Architecture
 
-This document describes the public, sanitized architecture model for the OPNsense home network security project. It is written for portfolio review, not as an exact network map.
+This document describes the public, sanitized architecture model for the OPNsense home network security project. It is written for portfolio review and is based on a local OPNsense configuration export reviewed on 2026-05-06.
 
 ## Zone Model
 
-| Zone | Purpose | Expected Access Pattern |
+| Zone / Component | Purpose | Current State |
 |---|---|---|
-| WAN | Internet edge | No administrative exposure from WAN |
-| Trusted LAN | Daily-use computers and phones | Outbound access, limited access to infrastructure |
-| Guest | Visitor or untrusted devices | Internet access only |
-| Lab | Security testing and experiments | Restricted access; isolated from trusted clients |
-| Infrastructure | DNS, logging, and internal services | Reachable only where required |
-| Management | Firewall and administrative interfaces | Private, trusted access only |
+| WAN | Internet edge | DHCP, private-network block enabled, bogon block enabled |
+| LAN | Trusted internal network | `192.168.2.0/24`, firewall at `192.168.2.1` |
+| DHCP | Client addressing | Dnsmasq range `192.168.2.41` to `192.168.2.245` |
+| Local DNS | LAN resolver path | Unbound on port 53 plus Dnsmasq local support on alternate port |
+| CrowdSec | Reputation/blocklist enforcement | Agent, LAPI, firewall bouncer, and aliases enabled |
+| IDS/IPS | Suricata inspection | Config exists, disabled |
+| VPN | Remote access | WireGuard disabled, OpenVPN has no instances |
+| Traffic shaping | Gaming/latency queue design | Rules/queues exist, pipes disabled |
 
 ## Traffic Philosophy
 
 - Inbound traffic starts closed.
-- Inter-zone traffic must have a reason.
-- Guest and lab networks should not reach trusted client systems.
-- Management interfaces should not be exposed to the public internet.
-- DNS and logging should be centralized enough to support review.
+- WAN should not expose management access.
+- LAN clients should use the firewall-controlled DNS path.
+- DNS-over-TLS should use the enabled Quad9 upstreams.
+- CrowdSec aliases should stay enabled and populated.
+- IDS/IPS should be described as planned/available unless it is enabled.
 
 ## Sanitized Flow
 
 ```mermaid
 flowchart TD
     WAN["WAN / Internet"] --> FW["OPNsense"]
-    FW --> LAN["Trusted LAN"]
-    FW --> GUEST["Guest"]
-    FW --> LAB["Lab"]
-    FW --> INFRA["Infrastructure"]
-    INFRA --> DNS["DNS Resolver / Filtering"]
-    INFRA --> LOGS["Logs / Alerts"]
-    LAN --> MGMT["Private Management"]
+    FW --> LAN["LAN 192.168.2.0/24"]
+    FW --> UNBOUND["Unbound DNS :53"]
+    FW --> DNSMASQ["Dnsmasq DHCP / local DNS"]
+    FW --> CROWDSEC["CrowdSec firewall bouncer"]
+    FW --> SHAPER["Traffic shaping rules"]
+    UNBOUND --> QUAD9["Quad9 DNS-over-TLS"]
+    UNBOUND --> DNSMASQ
+    LAN --> MGMT["Private LAN management"]
     MGMT --> FW
 ```
 
@@ -40,29 +44,29 @@ flowchart TD
 
 ### Firewall Rules
 
-Firewall policy is organized by intent rather than convenience. Rules should answer:
+Current firewall policy includes:
 
-- What source is allowed?
-- What destination is allowed?
-- What service is allowed?
-- Why is the rule needed?
-- When should it be reviewed?
+- A LAN block rule for TCP/UDP DNS traffic that is not destined for the approved local resolver alias.
+- Default IPv4 LAN allow to any.
+- Default IPv6 LAN allow to any.
+- Hybrid outbound NAT from LAN to WAN.
 
 ### DNS
 
-DNS filtering is treated as a security and visibility layer. It helps reduce unwanted resolution and creates an observable trail for troubleshooting suspicious activity.
+Unbound is enabled with DNSSEC and DNS-over-TLS entries for Quad9. Dnsmasq is enabled on LAN for DHCP/local naming support. LAN clients are intended to use the firewall DNS path rather than bypassing it.
 
 ### IDS/IPS
 
-IDS/IPS is useful only when alerts can be reviewed and tuned. The operating model should start with visibility, identify noisy rules, and move toward blocking only where confidence is high.
+Suricata configuration exists, with WAN selected and syslog/EVE options present, but IDS is currently disabled. Public documentation should call this IDS-ready or planned unless it is enabled later.
 
 ### VPN-Ready Access
 
-Remote access should favor authenticated private access patterns instead of direct administrative exposure. VPN configuration details and key material are intentionally not published.
+WireGuard is disabled and OpenVPN has no configured instances. Remote access should be treated as future work unless a VPN is enabled later.
 
 ## Future Improvements
 
+- Add VLAN or guest network segmentation if supported by switching/access point hardware.
+- Enable and tune IDS/IPS if alert review becomes part of regular operations.
+- Enable traffic-shaping pipes if the gaming/latency queue model is meant to be active.
 - Add sanitized screenshots with sensitive fields blurred.
 - Add an example change log for a firewall rule review.
-- Add a small lab scenario showing blocked guest-to-LAN movement.
-- Add a sample incident note template for IDS/IPS alert review.

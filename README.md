@@ -1,17 +1,22 @@
 # Home Network Security
 
-OPNsense production firewall for a personal network security perimeter: firewall policy, IDS/IPS, DNS security, segmentation, VPN-ready access patterns, and operational documentation.
+OPNsense production firewall for a personal network security perimeter: firewall policy, DNS security, CrowdSec blocking, DHCP/DNS operations, traffic-shaping work, and operational documentation.
 
 This repository documents a live home lab / production network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show the engineering decisions, security controls, and operational habits behind the environment while keeping the actual network safe.
 
 ## At A Glance
 
-- OPNsense edge firewall used as the primary network security control plane.
-- Default-deny mindset for inbound exposure.
-- Segmented trust zones for trusted clients, guest devices, infrastructure, and lab systems.
-- DNS security and filtering to reduce malicious, tracking, and unwanted resolution.
-- IDS/IPS-ready monitoring model for suspicious traffic and policy tuning.
-- Administrative access kept private and scoped to trusted management paths.
+- OPNsense edge firewall with DHCP WAN and a single trusted LAN.
+- WAN configured to block private networks and bogon networks.
+- LAN network served from `192.168.2.1/24`, with DHCP leases issued from `192.168.2.41` through `192.168.2.245`.
+- Unbound DNS enabled on port 53 with DNSSEC and DNS-over-TLS forwarding to Quad9.
+- Dnsmasq enabled on LAN for DHCP/local host registration support, listening on an alternate local DNS port.
+- Firewall rule blocks LAN clients from bypassing local DNS by sending DNS directly to non-approved resolvers.
+- CrowdSec agent, local API, and firewall bouncer enabled with IPv4/IPv6 blocklist aliases.
+- Suricata IDS configuration is present but currently disabled.
+- WireGuard and OpenVPN are present in the config tree but currently disabled/not instantiated.
+- Traffic-shaping queues and rules exist for gaming/latency prioritization, with pipes currently disabled.
+- Administrative access kept private and scoped to trusted LAN access.
 - Documentation-first approach: design notes, redaction rules, change tracking, and validation checklist.
 
 ## Architecture
@@ -20,17 +25,14 @@ This repository documents a live home lab / production network build without pub
 flowchart LR
     Internet["Internet"] --> Modem["ISP Modem / ONT"]
     Modem --> Firewall["OPNsense Firewall"]
-    Firewall --> Trusted["Trusted LAN"]
-    Firewall --> Guest["Guest Network"]
-    Firewall --> Lab["Security Lab"]
-    Firewall --> Infra["Infrastructure Services"]
-    Firewall --> VPN["Remote Access / VPN Ready"]
+    Firewall --> LAN["LAN 192.168.2.0/24"]
+    Firewall --> DNS["Unbound DNS + Dnsmasq DHCP"]
+    Firewall --> CrowdSec["CrowdSec firewall bouncer"]
+    Firewall --> Shaper["Traffic shaping rules"]
 
-    Trusted --> Workstations["Workstations and phones"]
-    Guest --> VisitorDevices["Visitor / untrusted devices"]
-    Lab --> TestSystems["Test hosts and experiments"]
-    Infra --> DNS["DNS filtering / resolver"]
-    Infra --> Logs["Logs and monitoring"]
+    LAN --> Workstation["Static host reservation"]
+    DNS --> Quad9["Quad9 DNS-over-TLS"]
+    CrowdSec --> Blocklists["IPv4/IPv6 blocklist aliases"]
 ```
 
 ## Security Goals
@@ -38,28 +40,33 @@ flowchart LR
 This project is built around practical defensive goals:
 
 - Reduce attack surface by keeping inbound services closed unless explicitly required.
-- Separate high-trust devices from guest and lab traffic.
-- Make DNS activity more visible and easier to control.
-- Create a place to safely test security tools without putting daily-use systems at unnecessary risk.
+- Keep LAN clients on the firewall-controlled DNS path.
+- Use DNSSEC and DNS-over-TLS to improve resolver integrity and privacy.
+- Use CrowdSec firewall blocking to add reputation-based protection.
+- Keep the current single-LAN design documented so later segmentation can be added deliberately.
 - Keep firewall administration private, deliberate, and documented.
 - Preserve evidence of design decisions without exposing reusable attack information.
 
 ## Control Areas
 
-| Area | Implementation Direction | Portfolio Evidence |
+| Area | Current Implementation | Portfolio Evidence |
 |---|---|---|
-| Perimeter firewalling | OPNsense rules and NAT policy | Sanitized rule intent, not raw exports |
-| Segmentation | Separate zones for trusted, guest, lab, and infrastructure traffic | Architecture diagram and zone descriptions |
-| DNS security | Resolver/filtering approach for safer name resolution | Policy goals and example categories |
-| IDS/IPS | Suricata-capable inspection and alert review workflow | Detection workflow and tuning notes |
-| Admin security | Private management access and least-exposure administration | Redaction checklist and operating rules |
+| Perimeter firewalling | OPNsense WAN/LAN firewall with LAN-to-WAN NAT | Sanitized rule intent, not raw exports |
+| WAN hardening | Private-network and bogon blocking enabled on WAN | Interface summary |
+| DNS security | Unbound with DNSSEC and Quad9 DNS-over-TLS | Resolver flow and DNS-bypass rule |
+| DHCP/local DNS | Dnsmasq on LAN with DHCP range and host reservations | Sanitized DHCP model |
+| DNS enforcement | LAN DNS bypass blocked except approved local resolver | Firewall rule summary |
+| CrowdSec | Agent, LAPI, firewall bouncer, and blocklist aliases enabled | Control summary |
+| IDS/IPS | Suricata configuration present but disabled | Honest status and future work |
+| VPN | WireGuard/OpenVPN not currently enabled | Future work |
+| Traffic shaping | Gaming/latency queues and rules configured; pipes disabled | Current tuning notes |
 | Operations | Backups, updates, validation, and change notes | Maintenance checklist |
 
 ## Design Principles
 
 ### 1. Start With Trust Boundaries
 
-The network is treated as multiple zones rather than one flat LAN. Daily-use devices, guests, infrastructure services, and lab systems should not all receive the same level of trust.
+The current network is a single LAN behind OPNsense. That is documented honestly here because segmentation is future work, not a current control. The first trust boundary is the firewall edge plus controlled DNS.
 
 ### 2. Keep Exposure Intentional
 
@@ -67,7 +74,7 @@ Inbound access is avoided by default. If a service needs to be reachable, the sa
 
 ### 3. Log Enough To Investigate
 
-Security controls are useful only when their output can be reviewed. The firewall, DNS layer, and IDS/IPS layer should produce enough signal to answer what happened without drowning routine use in noise.
+Security controls are useful only when their output can be reviewed. The firewall, DNS layer, CrowdSec, and any future IDS/IPS layer should produce enough signal to answer what happened without drowning routine use in noise.
 
 ### 4. Document Without Leaking
 
@@ -88,7 +95,8 @@ Use this as a recurring review list when maintaining the environment:
 
 - Confirm WAN-side administrative access is disabled.
 - Review inbound NAT and firewall rules for unnecessary exposure.
-- Confirm guest and lab networks cannot reach trusted client systems unless explicitly intended.
+- Confirm LAN clients receive the intended DHCP settings.
+- Confirm LAN clients use the intended DNS path.
 - Review DNS filtering effectiveness and false positives.
 - Check IDS/IPS alerts for repeated noise, blocked activity, and tuning opportunities.
 - Confirm backups exist and are stored securely.
@@ -106,4 +114,4 @@ Use this as a recurring review list when maintaining the environment:
 
 ## Status
 
-Live personal network project. Documentation is intentionally sanitized and will evolve as the environment changes.
+Live personal network project. Documentation is intentionally sanitized and based on the OPNsense configuration export reviewed on 2026-05-06.
