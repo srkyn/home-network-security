@@ -47,6 +47,12 @@ This project is built around practical defensive goals:
 - Keep firewall administration private, deliberate, and documented.
 - Preserve evidence of design decisions without exposing reusable attack information.
 
+## Mental Model
+
+This project is not trying to make a home network look bigger than it is. The mentality is to treat a small environment with the same seriousness as a real production system: know what is enabled, understand why it exists, avoid exposing management surfaces, and document the difference between current controls and future improvements.
+
+The theme is practical defense over security theater. I would rather have a few controls I can explain, validate, and maintain than a pile of features turned on for a screenshot.
+
 ## Control Areas
 
 | Area | Current Implementation | Portfolio Evidence |
@@ -107,6 +113,7 @@ Use this as a recurring review list when maintaining the environment:
 
 - `README.md`: project overview and public-facing case study.
 - `docs/architecture.md`: sanitized architecture and zone model.
+- `docs/design-rationale.md`: reasoning behind each major control and tradeoff.
 - `docs/operations.md`: maintenance and validation workflow.
 - `docs/redaction-guide.md`: rules for safely sharing network security work.
 - `LINKEDIN.md`: profile project entry and launch post draft.

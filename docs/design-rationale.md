@@ -1,0 +1,99 @@
+# Design Rationale
+
+This document explains the thinking behind the OPNsense home network security project. The goal is to make the project understandable from the outside: not just what is configured, but why each choice makes sense and what tradeoff it represents.
+
+## Overall Mentality
+
+I am treating the network like a small production environment. That means I care about clarity, repeatability, and knowing what is actually enabled. I do not want a portfolio project that looks impressive only because every feature name is listed. I want the configuration to tell a believable story: a real perimeter, real DNS control, real blocking, real maintenance habits, and honest notes about what is not finished yet.
+
+My bias is toward controls I can explain and validate. If I cannot describe what a setting does, why I enabled it, and how I would check whether it is working, it does not belong in the story yet.
+
+## OPNsense As The Edge Firewall
+
+OPNsense is the control point because the firewall should be the place where network intent becomes enforceable policy. Instead of relying on each device to behave perfectly, the network has one central system for WAN/LAN boundary decisions, DNS path control, NAT, blocking, and future inspection.
+
+The mentality here is ownership. I do not want the ISP router to be a mystery box doing the important work. I want a system where I can see the rules, back up the configuration, review changes, and understand the path traffic takes.
+
+## WAN Hardening
+
+The WAN interface blocks private networks and bogon networks. This is a simple control, but it matches the way I think about security: start by rejecting traffic that should not make sense at that boundary.
+
+It is not glamorous, but it is clean hygiene. The goal is to remove obvious bad or invalid paths before spending attention on more complex detections.
+
+## Single LAN Design
+
+The current network is a single LAN, and I am documenting that directly. I could make the project sound more advanced by pretending segmentation already exists, but that would be the wrong instinct.
+
+The mentality is accuracy first. A single-LAN network can still have useful security controls, but it should not be described like a segmented enterprise network. Future VLAN or guest/lab segmentation belongs in the roadmap until it is actually configured.
+
+## DHCP Range And Host Reservations
+
+Dnsmasq provides DHCP for the LAN, with a defined dynamic range and host reservations for known systems. This creates order: devices get predictable addressing behavior, and important systems can be recognized without relying on memory.
+
+The mentality is inventory without overcomplication. Even in a home network, knowing what should be present makes troubleshooting and security review easier.
+
+## Unbound DNS
+
+Unbound is the main DNS resolver on port 53. DNS is one of the best places to add control because almost every device depends on it before reaching a service.
+
+The mentality is to make quiet infrastructure visible. DNS is not just a convenience service; it is a control layer, a troubleshooting layer, and a place where suspicious behavior often leaves early clues.
+
+## DNSSEC
+
+DNSSEC is enabled to add validation to DNS responses where supported. It is not a magic shield, but it improves trust in the resolver path and shows that DNS integrity matters.
+
+The mentality is layered assurance. I do not expect one setting to solve everything, but I do want each layer to reduce a real class of risk.
+
+## DNS-over-TLS To Quad9
+
+The resolver forwards upstream DNS over TLS to Quad9. This gives the network a more private and security-oriented upstream path than plain DNS to arbitrary resolvers.
+
+The choice of Quad9 reflects a defensive bias: use an upstream provider that is commonly associated with security filtering and privacy-minded DNS service. The important part is not brand loyalty; it is choosing the resolver path intentionally instead of accepting defaults blindly.
+
+## Dnsmasq For Local DHCP/DNS Support
+
+Dnsmasq is still used for DHCP and local naming support while Unbound handles the main DNS listener. This lets the environment keep local host awareness while still using Unbound as the primary resolver path.
+
+The mentality is practical integration. Security setups often become messy when tools overlap. The better approach is to understand which component owns which job and document the handoff.
+
+## DNS Bypass Prevention
+
+The LAN firewall includes a DNS-bypass block rule so clients are pushed toward the approved local resolver instead of quietly using outside DNS servers.
+
+The mentality is enforcement over hope. If DNS is meant to be a control point, clients cannot be allowed to casually route around it. This is the difference between "I configured DNS" and "the network is actually expected to use it."
+
+## CrowdSec
+
+CrowdSec is enabled with the agent, local API, firewall bouncer, and blocklist aliases. This adds a reputation and community-signal layer to the firewall.
+
+The mentality is shared signal, locally enforced. I like controls that turn outside intelligence into a local decision without making the whole network dependent on manual review. It is not a replacement for good firewall rules, but it adds another useful filter.
+
+## IDS/IPS Status
+
+Suricata configuration exists, but IDS is currently disabled. That is intentionally documented as current state, not hidden.
+
+The mentality is honesty about operational load. IDS/IPS is only valuable if someone reviews alerts and tunes noise. Turning it on just to claim it exists would be weaker than saying, "the configuration path is there, but I have not made it an active operating control yet."
+
+## VPN Status
+
+WireGuard and OpenVPN are not currently active. Remote access is therefore future work, not a current capability.
+
+The mentality is controlled exposure. Remote access should be added when there is a clear reason, a secure authentication model, and a review process. Until then, not exposing remote management is a valid security choice.
+
+## Traffic Shaping
+
+Traffic-shaping queues and rules exist for gaming and latency-sensitive traffic, but the pipes are currently disabled. This shows performance tuning work without pretending the full shaping model is active.
+
+The mentality is that usability matters. A secure network that feels broken gets bypassed. Latency, gaming, updates, and normal household traffic are part of the environment, so performance tuning belongs in the design conversation.
+
+## Private Administration
+
+Administrative access is kept to the trusted LAN side. Public documentation avoids raw config exports, secrets, detailed host inventory, and management specifics.
+
+The mentality is that a portfolio should demonstrate judgment, not publish a target map. The point is to show how I think and what I built while keeping the actual environment safe.
+
+## Future Direction
+
+The next meaningful improvements are segmentation, IDS/IPS enablement and tuning, VPN only if there is a real remote-access need, and clearer operational evidence through sanitized screenshots or change logs.
+
+The mentality is iteration. I want each added control to have a reason, a validation step, and a maintenance habit. That is how a home lab becomes real experience instead of just a collection of toggles.
