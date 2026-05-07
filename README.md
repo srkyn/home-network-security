@@ -39,6 +39,19 @@ flowchart LR
     CrowdSec --> Blocklists["IPv4/IPv6 blocklist aliases"]
 ```
 
+## DNS Enforcement Flow
+
+```mermaid
+flowchart LR
+    Client["LAN client"] --> DHCP["DHCP settings from firewall"]
+    DHCP --> LocalDNS["Local DNS path<br/>Unbound + Dnsmasq"]
+    LocalDNS --> DoT["Quad9 DNS-over-TLS"]
+    Client -. "Direct DNS to outside resolver" .-> Block["LAN DNS-bypass block rule"]
+    Block --> Review["Firewall log review"]
+```
+
+This is the control that makes the setup more than a default home firewall: clients are expected to use the resolver path the firewall can validate and log, while direct DNS bypass attempts are blocked.
+
 ## Security Goals
 
 This project is built around practical defensive goals:
