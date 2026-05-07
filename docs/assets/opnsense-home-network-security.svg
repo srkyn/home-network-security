@@ -1,0 +1,83 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">OPNsense Home Network Security thumbnail</title>
+  <desc id="desc">Minimal Brooklyn-inspired cybersecurity project thumbnail with firewall gateway, DNS, and CrowdSec signals.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#05070b"/>
+      <stop offset="0.5" stop-color="#101820"/>
+      <stop offset="1" stop-color="#07110f"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="140" y1="160" x2="1020" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f97316"/>
+      <stop offset="0.58" stop-color="#d9a441"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="asphalt" width="42" height="42" patternUnits="userSpaceOnUse">
+      <rect width="42" height="42" fill="#05070b"/>
+      <path d="M0 41H42M41 0V42" stroke="#ffffff" stroke-opacity="0.035"/>
+      <circle cx="10" cy="13" r="1" fill="#ffffff" fill-opacity="0.08"/>
+      <circle cx="31" cy="28" r="1.2" fill="#d9a441" fill-opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#asphalt)" opacity="0.42"/>
+
+  <g opacity="0.23" stroke="#b7c4c8" stroke-width="2" fill="none">
+    <path d="M730 510C820 380 888 287 960 214C1004 170 1050 138 1102 116"/>
+    <path d="M732 510C840 410 930 348 1098 304"/>
+    <path d="M762 208V502"/>
+    <path d="M810 178V502"/>
+    <path d="M858 154V502"/>
+    <path d="M906 133V502"/>
+    <path d="M954 113V502"/>
+    <path d="M1002 96V502"/>
+    <path d="M1050 81V502"/>
+  </g>
+
+  <path d="M0 514H1200" stroke="#d9a441" stroke-width="2" stroke-opacity="0.55"/>
+  <path d="M0 527H1200" stroke="#14b8a6" stroke-width="2" stroke-opacity="0.28"/>
+
+  <g filter="url(#softGlow)">
+    <circle cx="830" cy="308" r="94" fill="#06110f" stroke="url(#copper)" stroke-width="4"/>
+    <path d="M830 223L897 256V324C897 370 865 399 830 417C795 399 763 370 763 324V256L830 223Z" fill="#07110f" stroke="#f97316" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M802 322L824 344L864 292" stroke="#14b8a6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g stroke="#14b8a6" stroke-width="2.5" fill="none" opacity="0.95">
+    <path d="M664 309H736"/>
+    <path d="M924 309H1004"/>
+    <path d="M830 160V216"/>
+    <circle cx="636" cy="309" r="18"/>
+    <circle cx="1032" cy="309" r="18"/>
+    <circle cx="830" cy="132" r="18"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#bdeee6" letter-spacing="2">
+    <text x="607" y="315">LAN</text>
+    <text x="1006" y="315">WAN</text>
+    <text x="798" y="138">DNS</text>
+  </g>
+
+  <g transform="translate(92 92)">
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="7" fill="#14b8a6">BROOKLYN DEFENSE</text>
+    <text x="0" y="82" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="900" fill="#f7f3e8" letter-spacing="0">OPNsense</text>
+    <text x="0" y="145" font-family="Inter, Arial, sans-serif" font-size="45" font-weight="800" fill="#f7f3e8" letter-spacing="0">Home Network Security</text>
+    <rect x="0" y="180" width="420" height="3" fill="url(#copper)"/>
+    <text x="0" y="235" font-family="Inter, Arial, sans-serif" font-size="27" fill="#cad5d5">Firewall policy · DNSSEC · Quad9 DoT</text>
+    <text x="0" y="279" font-family="Inter, Arial, sans-serif" font-size="27" fill="#cad5d5">DNS bypass blocking · CrowdSec</text>
+  </g>
+
+  <g transform="translate(92 514)">
+    <circle cx="0" cy="0" r="15" fill="#f97316"/>
+    <circle cx="39" cy="0" r="15" fill="#14b8a6"/>
+    <circle cx="78" cy="0" r="15" fill="#f7f3e8"/>
+    <text x="120" y="8" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800" fill="#f7f3e8" letter-spacing="3">CURRENT STATE FIRST</text>
+  </g>
+</svg>
