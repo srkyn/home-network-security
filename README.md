@@ -57,6 +57,18 @@ This project is not trying to make a home network look bigger than it is. The me
 
 The theme is practical defense over security theater. I would rather have a few controls I can explain, validate, and maintain than a pile of features turned on for a screenshot.
 
+## Case Study
+
+**Problem:** A home network can quietly become hard to reason about: DNS bypasses local controls, firewall rules drift, plugins get enabled without review, and documentation falls behind the real configuration.
+
+**Approach:** I reviewed the exported OPNsense configuration, separated current controls from future work, and documented the setup without publishing sensitive network details.
+
+**Evidence reviewed:** WAN/LAN interface roles, DHCP range, Unbound and Dnsmasq settings, Quad9 DNS-over-TLS forwarding, LAN DNS-bypass blocking, CrowdSec configuration, Suricata status, VPN status, and traffic-shaping state.
+
+**What I would check next:** recurring backup validation, firmware/plugin update cadence, DNS path testing from multiple clients, CrowdSec blocklist health, and whether segmentation is worth adding based on actual device trust boundaries.
+
+**Result:** The public writeup now describes what is actually configured, what is intentionally private, and what remains future work.
+
 ## Control Areas
 
 | Area | Current Implementation | Portfolio Evidence |
