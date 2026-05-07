@@ -4,7 +4,7 @@
   <img src="./docs/assets/opnsense-home-network-security.svg" alt="OPNsense Home Network Security project banner" width="100%">
 </p>
 
-Live OPNsense firewall for a personal network security perimeter: firewall policy, DNS security, CrowdSec blocking, DHCP/DNS operations, traffic-shaping work, and operational documentation.
+Live OPNsense firewall for a personal network security perimeter: firewall policy, DNS security, CrowdSec blocking, DHCP/DNS operations, traffic-shaping notes, and operational documentation.
 
 This repository documents a live personal network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show the engineering decisions, security controls, and operational habits behind the environment while keeping the actual network safe.
 
@@ -32,7 +32,7 @@ flowchart LR
     Firewall --> LAN["LAN 192.168.2.0/24"]
     Firewall --> DNS["Unbound DNS + Dnsmasq DHCP"]
     Firewall --> CrowdSec["CrowdSec firewall bouncer"]
-    Firewall --> Shaper["Traffic shaping rules"]
+    Firewall --> Shaper["Traffic shaping config<br/>(pipes disabled)"]
 
     LAN --> Workstation["Static host reservation"]
     DNS --> Quad9["Quad9 DNS-over-TLS"]

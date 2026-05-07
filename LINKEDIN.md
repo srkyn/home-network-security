@@ -5,7 +5,7 @@
 **Title:** OPNsense Home Network Security Lab
 
 **Description:**
-Built and documented a live OPNsense-based home network security perimeter focused on WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass prevention, CrowdSec firewall blocking, traffic-shaping work, private administration, and operational review. The public GitHub repository is intentionally sanitized to show architecture and security decision-making without exposing sensitive network details.
+Built and documented a live OPNsense-based home network security perimeter focused on WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass prevention, CrowdSec firewall blocking, private administration, traffic-shaping notes, and operational review. The public GitHub repository is intentionally sanitized to show architecture and security decision-making without exposing sensitive network details.
 
 The project is written to show the mentality behind the build: practical defense over security theater, accurate documentation over inflated claims, and controls that can be explained, validated, and maintained.
 
@@ -21,7 +21,7 @@ I published a sanitized writeup of my OPNsense home network security project:
 
 https://github.com/srkyn/home-network-security
 
-The project documents the defensive design behind my personal network perimeter: WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass prevention, CrowdSec firewall blocking, traffic-shaping work, private administration, and recurring validation checks.
+The project documents the defensive design behind my personal network perimeter: WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass prevention, CrowdSec firewall blocking, private administration, traffic-shaping notes, and recurring validation checks.
 
 I intentionally did not publish raw firewall exports, public IPs, keys, hostnames, or detailed internal addressing. The point is to show security engineering judgment without turning a portfolio project into a target map.
 

@@ -33,7 +33,7 @@ flowchart TD
     FW --> UNBOUND["Unbound DNS :53"]
     FW --> DNSMASQ["Dnsmasq DHCP / local DNS"]
     FW --> CROWDSEC["CrowdSec firewall bouncer"]
-    FW --> SHAPER["Traffic shaping rules"]
+    FW --> SHAPER["Traffic shaping config<br/>(pipes disabled)"]
     UNBOUND --> QUAD9["Quad9 DNS-over-TLS"]
     UNBOUND --> DNSMASQ
     LAN --> MGMT["Private LAN management"]
