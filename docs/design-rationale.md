@@ -1,6 +1,6 @@
 # Design Rationale
 
-This document explains the thinking behind the OPNsense home network security project. The goal is to make the project understandable from the outside: not just what is configured, but why each choice makes sense and what tradeoff it represents.
+This document explains the thinking behind the OPNsense home network security project. The goal is to make the project understandable from the outside: what is configured, why each choice makes sense, and what tradeoff it represents.
 
 ## Overall Mentality
 
@@ -40,7 +40,7 @@ The mentality is to make quiet infrastructure visible. DNS is not just a conveni
 
 ## DNSSEC
 
-DNSSEC is enabled to add validation to DNS responses where supported. It is not a magic shield, but it improves trust in the resolver path and shows that DNS integrity matters.
+DNSSEC is enabled to add validation to DNS responses where supported. It is not a complete control by itself, but it improves trust in the resolver path and shows that DNS integrity matters.
 
 The mentality is layered assurance. I do not expect one setting to solve everything, but I do want each layer to reduce a real class of risk.
 
@@ -72,7 +72,7 @@ The mentality is shared signal, locally enforced. I like controls that turn outs
 
 Suricata configuration exists, but IDS is currently disabled. That is intentionally documented as current state, not hidden.
 
-The mentality is honesty about operational load. IDS/IPS is only valuable if someone reviews alerts and tunes noise. Turning it on just to claim it exists would be weaker than saying, "the configuration path is there, but I have not made it an active operating control yet."
+The mentality is honesty about operational load. IDS/IPS is only valuable if someone reviews alerts and tunes noise. Turning it on for appearance would be weaker than saying, "the configuration path is there, but I have not made it an active operating control yet."
 
 ## VPN Status
 
@@ -96,4 +96,4 @@ The mentality is that a portfolio should demonstrate judgment, not publish a tar
 
 The next meaningful improvements are segmentation, IDS/IPS enablement and tuning, VPN only if there is a real remote-access need, and clearer operational evidence through sanitized screenshots or change logs.
 
-The mentality is iteration. I want each added control to have a reason, a validation step, and a maintenance habit. That is how a home lab becomes real experience instead of just a collection of toggles.
+The mentality is iteration. I want each added control to have a reason, a validation step, and a maintenance habit. That is how a home lab becomes real experience instead of a collection of toggles.

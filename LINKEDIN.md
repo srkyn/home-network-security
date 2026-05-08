@@ -7,7 +7,7 @@
 **Description:**
 Built and documented a live OPNsense-based home network security perimeter focused on WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass prevention, CrowdSec firewall blocking, private administration, traffic-shaping notes, and operational review. The public GitHub repository is intentionally sanitized to show architecture and security decision-making without exposing sensitive network details.
 
-The project is written to show the mentality behind the build: practical defense over security theater, accurate documentation over inflated claims, and controls that can be explained, validated, and maintained.
+The project is written to show the mentality behind the build: practical defense over feature collecting, accurate documentation over inflated claims, and controls that can be explained, validated, and maintained.
 
 **Skills to attach:**
 Network Security, Firewall Administration, OPNsense, DNS Security, DNSSEC, CrowdSec, DHCP, Traffic Shaping, Security Operations, Documentation

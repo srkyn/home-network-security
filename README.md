@@ -68,7 +68,7 @@ This project is built around practical defensive goals:
 
 This project is not trying to make a home network look bigger than it is. The mentality is to treat a small environment with the same seriousness as a real production system: know what is enabled, understand why it exists, avoid exposing management surfaces, and document the difference between current controls and future improvements.
 
-The theme is practical defense over security theater. I would rather have a few controls I can explain, validate, and maintain than a pile of features turned on for a screenshot.
+The approach is practical defense over feature collecting. A small set of controls that can be explained, validated, and maintained is more useful than a larger set of controls enabled for appearance.
 
 ## Case Study
 
