@@ -1,6 +1,6 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">OPNsense Home Network Security thumbnail</title>
-  <desc id="desc">Minimal Brooklyn-inspired cybersecurity project thumbnail with firewall gateway, DNS, and CrowdSec signals.</desc>
+  <desc id="desc">Minimal cybersecurity project thumbnail with firewall gateway, DNS, and CrowdSec signals.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#05070b"/>
@@ -66,7 +66,7 @@
   </g>
 
   <g transform="translate(92 92)">
-    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="7" fill="#14b8a6">BROOKLYN DEFENSE</text>
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="7" fill="#14b8a6">CURRENT STATE</text>
     <text x="0" y="82" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="900" fill="#f7f3e8" letter-spacing="0">OPNsense</text>
     <text x="0" y="145" font-family="Inter, Arial, sans-serif" font-size="45" font-weight="800" fill="#f7f3e8" letter-spacing="0">Home Network Security</text>
     <rect x="0" y="180" width="420" height="3" fill="url(#copper)"/>
