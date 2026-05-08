@@ -6,7 +6,7 @@
 
 Live OPNsense firewall for a personal network security perimeter: firewall policy, DNS security, CrowdSec blocking, DHCP/DNS operations, traffic-shaping notes, and operational documentation.
 
-This repository documents a live personal network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show the engineering decisions, security controls, and operational habits behind the environment while keeping the actual network safe.
+This repository documents a live personal network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show engineering decisions, security controls, and operational habits without turning the network into a target map.
 
 ## At A Glance
 
@@ -64,12 +64,6 @@ This project is built around practical defensive goals:
 - Keep firewall administration private, deliberate, and documented.
 - Preserve evidence of design decisions without exposing reusable attack information.
 
-## Mental Model
-
-This project is not trying to make a home network look bigger than it is. The mentality is to treat a small environment with the same seriousness as a real production system: know what is enabled, understand why it exists, avoid exposing management surfaces, and document the difference between current controls and future improvements.
-
-The approach is practical defense over feature collecting. A small set of controls that can be explained, validated, and maintained is more useful than a larger set of controls enabled for appearance.
-
 ## Case Study
 
 **Problem:** A home network can quietly become hard to reason about: DNS bypasses local controls, firewall rules drift, plugins get enabled without review, and documentation falls behind the real configuration.
@@ -80,7 +74,7 @@ The approach is practical defense over feature collecting. A small set of contro
 
 **What I would check next:** recurring backup validation, firmware/plugin update cadence, DNS path testing from multiple clients, CrowdSec blocklist health, and whether segmentation is worth adding based on actual device trust boundaries.
 
-**Result:** The public writeup now describes what is actually configured, what is intentionally private, and what remains future work.
+**Result:** The public writeup describes what is configured, what stays private, and what remains future work.
 
 ## Control Areas
 
@@ -103,7 +97,7 @@ The approach is practical defense over feature collecting. A small set of contro
 
 The current network is a single LAN behind OPNsense. That is documented honestly here because segmentation is future work, not a current control. The first trust boundary is the firewall edge plus controlled DNS.
 
-### 2. Keep Exposure Intentional
+### 2. Keep Exposure Deliberate
 
 Inbound access is avoided by default. If a service needs to be reachable, the safer pattern is to document the reason, scope the source/destination, prefer VPN-style access, and review it later.
 
@@ -115,7 +109,7 @@ Security controls are useful only when their output can be reviewed. The firewal
 
 A security portfolio should prove capability, not publish a target map. This repository uses sanitized diagrams and control descriptions instead of raw firewall backups or real host details.
 
-## What Is Intentionally Not Published
+## What Is Not Published
 
 - Public IP addresses.
 - Firewall backup exports.
@@ -150,4 +144,4 @@ Use this as a recurring review list when maintaining the environment:
 
 ## Status
 
-Live personal network project. Documentation is intentionally sanitized and based on the OPNsense configuration export reviewed on 2026-05-06.
+Live personal network project. Documentation is sanitized and based on the OPNsense configuration export reviewed on 2026-05-06.

@@ -48,7 +48,7 @@ The mentality is layered assurance. I do not expect one setting to solve everyth
 
 The resolver forwards upstream DNS over TLS to Quad9. This gives the network a more private and security-oriented upstream path than plain DNS to arbitrary resolvers.
 
-The choice of Quad9 reflects a defensive bias: use an upstream provider that is commonly associated with security filtering and privacy-minded DNS service. The important part is not brand loyalty; it is choosing the resolver path intentionally instead of accepting defaults blindly.
+The choice of Quad9 reflects a defensive bias: use an upstream provider that is commonly associated with security filtering and privacy-minded DNS service. The important part is not brand loyalty; it is choosing the resolver path deliberately instead of accepting defaults blindly.
 
 ## Dnsmasq For Local DHCP/DNS Support
 
@@ -70,7 +70,7 @@ The mentality is shared signal, locally enforced. I like controls that turn outs
 
 ## IDS/IPS Status
 
-Suricata configuration exists, but IDS is currently disabled. That is intentionally documented as current state, not hidden.
+Suricata configuration exists, but IDS is currently disabled. That is documented as current state, not hidden.
 
 The mentality is honesty about operational load. IDS/IPS is only valuable if someone reviews alerts and tunes noise. Turning it on for appearance would be weaker than saying, "the configuration path is there, but I have not made it an active operating control yet."
 
