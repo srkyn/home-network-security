@@ -43,7 +43,7 @@ Before publishing a screenshot:
 
 Use this framing:
 
-> I built and maintain an OPNsense home network with private administrative access, DNSSEC, Quad9 DNS-over-TLS, LAN DNS-bypass blocking, CrowdSec, and documented validation checks.
+> I built and maintain an OPNsense network security lab with private administrative access, DNSSEC, DNS-over-TLS, DNS-bypass blocking, CrowdSec, and documented validation checks.
 
 Avoid this framing:
 

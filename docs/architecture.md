@@ -7,8 +7,8 @@ This document describes the public, sanitized architecture model for the OPNsens
 | Zone / Component | Purpose | Current State |
 |---|---|---|
 | WAN | Internet edge | DHCP, private-network block enabled, bogon block enabled |
-| LAN | Trusted internal network | `192.168.2.0/24`, firewall at `192.168.2.1` |
-| DHCP | Client addressing | Dnsmasq range `192.168.2.41` to `192.168.2.245` |
+| LAN | Trusted internal network | Private RFC1918 LAN |
+| DHCP | Client addressing | Dnsmasq scoped DHCP range for trusted clients |
 | Local DNS | LAN resolver path | Unbound on port 53 plus Dnsmasq local support on alternate port |
 | CrowdSec | Reputation/blocklist enforcement | Agent, LAPI, firewall bouncer, and aliases enabled |
 | IDS/IPS | Suricata inspection | Config exists, disabled |
@@ -29,14 +29,14 @@ This document describes the public, sanitized architecture model for the OPNsens
 ```mermaid
 flowchart TD
     WAN["WAN / Internet"] --> FW["OPNsense"]
-    FW --> LAN["LAN 192.168.2.0/24"]
+    FW --> LAN["Private RFC1918 LAN"]
     FW --> UNBOUND["Unbound DNS :53"]
-    FW --> DNSMASQ["Dnsmasq DHCP / local DNS"]
+    FW --> DNSMASQ["Scoped DHCP / local DNS"]
     FW --> CROWDSEC["CrowdSec firewall bouncer"]
     FW --> SHAPER["Traffic shaping config<br/>(pipes disabled)"]
     UNBOUND --> QUAD9["Quad9 DNS-over-TLS"]
     UNBOUND --> DNSMASQ
-    LAN --> MGMT["Private LAN management"]
+    LAN --> MGMT["Private administrative access"]
     MGMT --> FW
 ```
 

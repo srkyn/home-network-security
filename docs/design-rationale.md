@@ -26,9 +26,9 @@ The current network is a single LAN, and I am documenting that directly. I could
 
 The mentality is accuracy first. A single-LAN network can still have useful security controls, but it should not be described like a segmented enterprise network. Future VLAN or guest/lab segmentation belongs in the roadmap until it is actually configured.
 
-## DHCP Range And Host Reservations
+## DHCP Model
 
-Dnsmasq provides DHCP for the LAN, with a defined dynamic range and host reservations for known systems. This creates order: devices get predictable addressing behavior, and important systems can be recognized without relying on memory.
+Dnsmasq provides DHCP for the LAN with a scoped range for trusted clients. This creates order without publishing exact internal addressing or host-reservation details.
 
 The mentality is inventory without overcomplication. Even in a home network, knowing what should be present makes troubleshooting and security review easier.
 

@@ -12,7 +12,7 @@ This repository documents a live personal network build without publishing sensi
 
 - OPNsense edge firewall with DHCP WAN and a single trusted LAN.
 - WAN configured to block private networks and bogon networks.
-- LAN network served from `192.168.2.1/24`, with DHCP leases issued from `192.168.2.41` through `192.168.2.245`.
+- Private RFC1918 LAN with a scoped DHCP range for trusted clients.
 - Unbound DNS enabled on port 53 with DNSSEC and DNS-over-TLS forwarding to Quad9.
 - Dnsmasq enabled on LAN for DHCP/local host registration support, listening on an alternate local DNS port.
 - Firewall rule blocks LAN clients from bypassing local DNS by sending DNS directly to non-approved resolvers.
@@ -29,12 +29,12 @@ This repository documents a live personal network build without publishing sensi
 flowchart LR
     Internet["Internet"] --> Modem["ISP Modem / ONT"]
     Modem --> Firewall["OPNsense Firewall"]
-    Firewall --> LAN["LAN 192.168.2.0/24"]
-    Firewall --> DNS["Unbound DNS + Dnsmasq DHCP"]
+    Firewall --> LAN["Private RFC1918 LAN"]
+    Firewall --> DNS["Local firewall-managed DNS path"]
     Firewall --> CrowdSec["CrowdSec firewall bouncer"]
     Firewall --> Shaper["Traffic shaping config<br/>(pipes disabled)"]
 
-    LAN --> Workstation["Static host reservation"]
+    LAN --> ClientHost["Trusted client"]
     DNS --> Quad9["Quad9 DNS-over-TLS"]
     CrowdSec --> Blocklists["IPv4/IPv6 blocklist aliases"]
 ```
@@ -43,8 +43,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    Client["LAN client"] --> DHCP["DHCP settings from firewall"]
-    DHCP --> LocalDNS["Local DNS path<br/>Unbound + Dnsmasq"]
+    Client["Trusted client"] --> DHCP["Scoped DHCP range"]
+    DHCP --> LocalDNS["Local firewall-managed DNS path<br/>Unbound + Dnsmasq"]
     LocalDNS --> DoT["Quad9 DNS-over-TLS"]
     Client -. "Direct DNS to outside resolver" .-> Block["LAN DNS-bypass block rule"]
     Block --> Review["Firewall log review"]
@@ -70,7 +70,7 @@ This project is built around practical defensive goals:
 
 **Approach:** I reviewed the exported OPNsense configuration, separated current controls from future work, and documented the setup without publishing sensitive network details.
 
-**Evidence reviewed:** WAN/LAN interface roles, DHCP range, Unbound and Dnsmasq settings, Quad9 DNS-over-TLS forwarding, LAN DNS-bypass blocking, CrowdSec configuration, Suricata status, VPN status, and traffic-shaping state.
+**Evidence reviewed:** WAN/LAN interface roles, scoped DHCP model, Unbound and Dnsmasq settings, Quad9 DNS-over-TLS forwarding, LAN DNS-bypass blocking, CrowdSec configuration, Suricata status, VPN status, and traffic-shaping state.
 
 **What I would check next:** recurring backup validation, firmware/plugin update cadence, DNS path testing from multiple clients, CrowdSec blocklist health, and whether segmentation is worth adding based on actual device trust boundaries.
 
@@ -83,7 +83,7 @@ This project is built around practical defensive goals:
 | Perimeter firewalling | OPNsense WAN/LAN firewall with LAN-to-WAN NAT | Sanitized rule intent, not raw exports |
 | WAN hardening | Private-network and bogon blocking enabled on WAN | Interface summary |
 | DNS security | Unbound with DNSSEC and Quad9 DNS-over-TLS | Resolver flow and DNS-bypass rule |
-| DHCP/local DNS | Dnsmasq on LAN with DHCP range and host reservations | Sanitized DHCP model |
+| DHCP/local DNS | Dnsmasq on LAN with a scoped DHCP model for trusted clients | Sanitized DHCP model |
 | DNS enforcement | LAN DNS bypass blocked except approved local resolver | Firewall rule summary |
 | CrowdSec | Agent, LAPI, firewall bouncer, and blocklist aliases enabled | Control summary |
 | IDS/IPS | Suricata configuration present but disabled | Honest status and future work |
