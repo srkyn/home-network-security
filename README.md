@@ -4,7 +4,7 @@
   <img src="./docs/assets/opnsense-home-network-security.svg" alt="OPNsense Home Network Security project banner" width="100%">
 </p>
 
-Live OPNsense firewall for a personal network security perimeter: firewall policy, DNS security, CrowdSec blocking, DHCP/DNS operations, traffic-shaping notes, and operational documentation.
+Live OPNsense firewall and lightweight Proxmox security control plane for a personal network: firewall policy, DNS security, CrowdSec blocking, centralized logs, asset awareness, deception, uptime monitoring, safe on-demand scanning, and operational documentation.
 
 This repository documents a live personal network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show engineering decisions, security controls, and operational habits without turning the network into a target map.
 
@@ -20,6 +20,13 @@ This repository documents a live personal network build without publishing sensi
 - Suricata IDS configuration is present but currently disabled.
 - WireGuard and OpenVPN are present in the config tree but currently disabled/not instantiated.
 - Traffic-shaping queues and rules exist for gaming/latency prioritization, with pipes currently disabled.
+- Lightweight Proxmox control plane added with LXCs for monitoring, logs, discovery, canary services, config backup, and on-demand scanners.
+- VictoriaLogs receives firewall and canary logs with short retention and disk caps.
+- NetAlertX provides local unknown-device awareness without aggressive scanning.
+- OpenCanary acts as a fake internal NAS/server for high-signal interaction alerts.
+- Uptime Kuma monitors core services using SQLite to keep RAM use low.
+- Glance provides a one-page daily operations dashboard.
+- Nuclei, Trivy, and opnDossier are available only as manual runners, not scheduled scans.
 - Administrative access kept private and scoped to trusted LAN access.
 - Documentation-first approach: design notes, redaction rules, change tracking, and validation checklist.
 
@@ -33,10 +40,18 @@ flowchart LR
     Firewall --> DNS["Local firewall-managed DNS path"]
     Firewall --> CrowdSec["CrowdSec firewall bouncer"]
     Firewall --> Shaper["Traffic shaping config<br/>(pipes disabled)"]
+    LAN --> Proxmox["Proxmox security-services node"]
+    Proxmox --> Dashboard["Glance dashboard"]
+    Proxmox --> Logs["VictoriaLogs"]
+    Proxmox --> Discovery["NetAlertX"]
+    Proxmox --> Canary["OpenCanary fake NAS"]
+    Proxmox --> Kuma["Uptime Kuma"]
 
     LAN --> ClientHost["Trusted client"]
     DNS --> Quad9["Quad9 DNS-over-TLS"]
     CrowdSec --> Blocklists["IPv4/IPv6 blocklist aliases"]
+    Firewall -- "remote syslog" --> Logs
+    Canary -- "canary events" --> Logs
 ```
 
 ## DNS Enforcement Flow
@@ -76,6 +91,24 @@ This project is built around practical defensive goals:
 
 **Result:** The public writeup describes what is configured, what stays private, and what remains future work.
 
+## Proxmox Security Control Plane
+
+The second phase adds a lightweight Proxmox-based security-services node. It was built with a simple rule: improve visibility without putting anything in the traffic path.
+
+![Lightweight Proxmox security control plane](docs/assets/proxmox-security-control-plane.svg)
+
+The control plane provides:
+
+- A Glance dashboard as the daily starting point.
+- Uptime Kuma service monitoring with SQLite.
+- VictoriaLogs for OPNsense and canary log search.
+- NetAlertX for local asset discovery and unknown-device review.
+- OpenCanary as a fake internal NAS/server.
+- A restricted Git target for OPNsense configuration backup.
+- Manual Nuclei, Trivy, and opnDossier runners for scoped checks.
+
+See [docs/proxmox-security-control-plane.md](docs/proxmox-security-control-plane.md) for the full design rationale.
+
 ## Control Areas
 
 | Area | Current Implementation | Portfolio Evidence |
@@ -89,6 +122,12 @@ This project is built around practical defensive goals:
 | IDS/IPS | Suricata configuration present but disabled | Honest status and future work |
 | VPN | WireGuard/OpenVPN not currently enabled | Future work |
 | Traffic shaping | Gaming/latency queues and rules configured; pipes disabled | Current tuning notes |
+| Security dashboard | Glance dashboard for daily checks and tool launch points | Sanitized dashboard workflow |
+| Central logs | VictoriaLogs receives firewall and canary syslog | Log architecture summary |
+| Asset awareness | NetAlertX scoped to the local LAN | Unknown-device review workflow |
+| Canary signal | OpenCanary fake NAS/server | High-signal interaction model |
+| Uptime monitoring | Uptime Kuma with SQLite | Monitor list and operations notes |
+| Safe scanners | Nuclei, Trivy, and opnDossier manual runners only | No scheduled intrusive scans |
 | Operations | Backups, updates, validation, and change notes | Maintenance checklist |
 
 ## Design Principles
@@ -137,8 +176,10 @@ Use this as a recurring review list when maintaining the environment:
 - `README.md`: project overview and public-facing case study.
 - `docs/architecture.md`: sanitized architecture and zone model.
 - `docs/design-rationale.md`: reasoning behind each major control and tradeoff.
+- `docs/proxmox-security-control-plane.md`: lightweight Proxmox security control plane case study.
 - `docs/operations.md`: maintenance and validation workflow.
 - `docs/redaction-guide.md`: rules for safely sharing network security work.
+- `docs/linkedin-project-package.md`: LinkedIn project entry, launch post, and resume bullet.
 - `LINKEDIN.md`: profile project entry and launch post draft.
 - `SECURITY.md`: guidance for reporting security concerns about the repository.
 

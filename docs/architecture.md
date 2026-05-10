@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the public, sanitized architecture model for the OPNsense home network security project. It is written for portfolio review and is based on a local OPNsense configuration export reviewed on 2026-05-06.
+This document describes the public, sanitized architecture model for the OPNsense home network security project. It is written for portfolio review and is based on local OPNsense and Proxmox security-services work reviewed in May 2026.
 
 ## Zone Model
 
@@ -14,6 +14,10 @@ This document describes the public, sanitized architecture model for the OPNsens
 | IDS/IPS | Suricata inspection | Config exists, disabled |
 | VPN | Remote access | WireGuard disabled, OpenVPN has no instances |
 | Traffic shaping | Gaming/latency queue design | Rules/queues exist, pipes disabled |
+| Proxmox security node | Visibility/control plane | LXCs for dashboard, logs, discovery, canary, uptime monitoring, and on-demand runners |
+| Central logs | OPNsense and canary events | VictoriaLogs with retention and disk caps |
+| Deception | Fake internal NAS/server | OpenCanary enabled with safe services |
+| Uptime monitoring | Service health | Uptime Kuma with SQLite |
 
 ## Traffic Philosophy
 
@@ -34,10 +38,19 @@ flowchart TD
     FW --> DNSMASQ["Scoped DHCP / local DNS"]
     FW --> CROWDSEC["CrowdSec firewall bouncer"]
     FW --> SHAPER["Traffic shaping config<br/>(pipes disabled)"]
+    FW --> SYSLOG["Remote syslog<br/>(conservative severity)"]
     UNBOUND --> QUAD9["Quad9 DNS-over-TLS"]
     UNBOUND --> DNSMASQ
     LAN --> MGMT["Private administrative access"]
     MGMT --> FW
+    LAN --> PVE["Proxmox security node"]
+    PVE --> DASH["Glance dashboard"]
+    PVE --> LOGS["VictoriaLogs"]
+    PVE --> ALERTX["NetAlertX"]
+    PVE --> KUMA["Uptime Kuma"]
+    PVE --> CANARY["OpenCanary fake NAS"]
+    SYSLOG --> LOGS
+    CANARY --> LOGS
 ```
 
 ## Control Notes
@@ -63,6 +76,14 @@ Suricata configuration exists, with WAN selected and syslog/EVE options present,
 
 WireGuard is disabled and OpenVPN has no configured instances. Remote access should be treated as future work unless a VPN is enabled later.
 
+### Security Control Plane
+
+The Proxmox security node is deliberately not inline. It receives logs, hosts monitoring and discovery tools, provides a canary, and runs safe manual checks. Normal client traffic continues to route through OPNsense, not through the Proxmox security node.
+
+### Laptop Host Considerations
+
+The Proxmox node runs on laptop hardware. Lid-close and sleep behavior were configured for server-style operation, and the remaining operational concern is physical ventilation.
+
 ## Future Improvements
 
 - Add VLAN or guest network segmentation if supported by switching/access point hardware.
@@ -70,3 +91,4 @@ WireGuard is disabled and OpenVPN has no configured instances. Remote access sho
 - Enable traffic-shaping pipes if the gaming/latency queue model is meant to be active.
 - Add sanitized screenshots with sensitive fields blurred.
 - Add an example change log for a firewall rule review.
+- Reserve stable DHCP addresses for portfolio-facing internal services so dashboard links do not drift.

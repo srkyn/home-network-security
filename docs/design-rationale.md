@@ -97,3 +97,40 @@ The mentality is that a portfolio should demonstrate judgment, not publish a tar
 The next meaningful improvements are segmentation, IDS/IPS enablement and tuning, VPN only if there is a real remote-access need, and clearer operational evidence through sanitized screenshots or change logs.
 
 The mentality is iteration. I want each added control to have a reason, a validation step, and a maintenance habit. That is how a home lab becomes real experience instead of a collection of toggles.
+
+## Proxmox As A Visibility Plane
+
+The Proxmox security node was added after the firewall baseline because the network needed better visibility without adding packet-path risk. The firewall still enforces traffic policy. Proxmox hosts supporting controls: logs, dashboards, uptime checks, asset discovery, canary services, backup targets, and safe manual scanners.
+
+This separation is deliberate. A home security stack can easily become fragile if every tool is placed inline or every feature is turned on. The better pattern for this environment is:
+
+- OPNsense decides what traffic is allowed.
+- Proxmox helps explain what is happening.
+- On-demand scanners run only when authorized and useful.
+- Always-on services stay small enough for the hardware.
+
+## Why LXCs Instead Of Full VMs
+
+The host has limited RAM, so LXCs were chosen first. That gives the project Linux isolation with much less overhead than full virtual machines. The only Docker runtime lives inside the `secops-core` LXC, keeping the Proxmox host cleaner and reducing the blast radius of container experiments.
+
+The tradeoff is that Docker-in-LXC needs explicit features and a bit more care. That was acceptable because the result avoids a heavier VM while keeping the services inspectable and easy to back up.
+
+## Why VictoriaLogs
+
+VictoriaLogs was selected because the project needed a lightweight log backend, not a heavyweight SIEM. The goal is searchable evidence for OPNsense and canary events with retention and disk caps. This matches the size of the environment and avoids spending most of the host's RAM on the logging layer.
+
+## Why Glance
+
+Glance is the dashboard because it is a front door, not an analytics platform. Grafana is useful when rich time-series panels are the main goal, but this setup needed a low-memory cockpit: health, links, runbook shortcuts, and release awareness.
+
+## Why Uptime Kuma Uses SQLite
+
+Uptime Kuma was configured with SQLite because the monitor set is small. Running MariaDB for a handful of home service checks would add unnecessary memory and maintenance overhead. SQLite is simpler to back up and easier to reason about.
+
+## Why OpenCanary
+
+The fake NAS creates a signal that should be rare. Normal household use should not touch it. That makes canary interaction more meaningful than another noisy vulnerability dashboard.
+
+## Why Scanning Is Manual
+
+Nuclei and Trivy are useful, but scheduled scanning can create noise, load, and accidental scope creep. They are installed as safe manual runners so the operator chooses when and where to scan. That keeps the project defensive and controlled.
