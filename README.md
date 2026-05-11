@@ -6,11 +6,15 @@
 
 Live OPNsense firewall and lightweight Proxmox security control plane for a personal network: firewall policy, DNS security, CrowdSec blocking, centralized logs, asset awareness, deception, uptime monitoring, safe on-demand scanning, and operational documentation.
 
+The build runs on repurposed hardware: a small mini PC for OPNsense and a recycled 8 GB laptop as the Proxmox security-services node. That constraint is intentional in the documentation because the project is about practical defensive value on equipment that has to stay stable, quiet, and useful in a real home network.
+
 This repository documents a live personal network build without publishing sensitive configuration exports, public IPs, secrets, hostnames, or private management details. The goal is to show engineering decisions, security controls, and operational habits without turning the network into a target map.
 
 ## At A Glance
 
 - OPNsense edge firewall with DHCP WAN and a single trusted LAN.
+- Repurposed mini PC used as the OPNsense firewall.
+- Recycled 8 GB laptop used as the Proxmox security-services node.
 - WAN configured to block private networks and bogon networks.
 - Private RFC1918 LAN with a scoped DHCP range for trusted clients.
 - Unbound DNS enabled on port 53 with DNSSEC and DNS-over-TLS forwarding to Quad9.

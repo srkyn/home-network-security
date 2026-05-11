@@ -8,7 +8,7 @@ Lightweight Home Security Control Plane for OPNsense using Proxmox, VictoriaLogs
 
 ## Short Description
 
-Built a low-overhead home security control plane around an OPNsense firewall and an 8 GB Proxmox node. The design keeps OPNsense as the enforcement point while Proxmox provides centralized logs, uptime monitoring, asset discovery, canary detection, configuration backup, and safe on-demand security checks.
+Built a low-overhead home security control plane around an OPNsense firewall and an 8 GB Proxmox node. The setup uses repurposed hardware: a small mini PC for OPNsense and a recycled laptop for Proxmox. The design keeps OPNsense as the enforcement point while Proxmox provides centralized logs, uptime monitoring, asset discovery, canary detection, configuration backup, and safe on-demand security checks.
 
 ## What It Demonstrates
 
@@ -24,7 +24,7 @@ Built a low-overhead home security control plane around an OPNsense firewall and
 
 ## Why It Matters
 
-This is not a lab that exists only on paper. It is a live home network security build designed around real constraints: limited RAM, household usability, gaming latency, private data protection, and the need to avoid breaking the internet while adding defensive visibility.
+This is not a lab that exists only on paper. It is a live home network security build designed around real constraints: repurposed hardware, limited RAM, household usability, gaming latency, private data protection, and the need to avoid breaking the internet while adding defensive visibility.
 
 The main design decision was to keep OPNsense as the traffic enforcement point and make Proxmox the visibility/control plane. That means the security stack improves awareness without becoming an inline performance bottleneck.
 
@@ -35,7 +35,7 @@ The main design decision was to keep OPNsense as the traffic enforcement point a
 **Description:**
 Built and documented a lightweight security control plane for a live OPNsense home network using Proxmox LXCs, VictoriaLogs, NetAlertX, OpenCanary, Uptime Kuma, Glance, opnDossier, Nuclei, Trivy, and CrowdSec.
 
-The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe on-demand scanning, and a one-page dashboard. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
+The build runs on repurposed hardware: a mini PC for the OPNsense firewall and a recycled 8 GB laptop for Proxmox. The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe on-demand scanning, and a one-page dashboard. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
 
 **Project URL:**
 https://github.com/srkyn/home-network-security
@@ -81,4 +81,3 @@ Keep screenshots sanitized. Crop or blur exact internal details where possible.
 - NetAlertX device list with hostnames/MACs blurred.
 - OpenCanary fake NAS page.
 - Proxmox CT list with sensitive notes hidden.
-
