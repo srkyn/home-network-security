@@ -1,5 +1,7 @@
 # Website Update Suggestions: 2026-05-20
 
+Status update on 2026-05-21: the live portfolio site has been updated with the recommended direction. The Network project is now presented as **Home Network Security Control Plane** and the copy references Homepage Operations Dashboard, NetBox, Uptime Kuma, Victoria, NetAlertX, OpenCanary, Trivy/Syft, backup/freshness tracking, recovery status, and known gaps without publishing private operational details.
+
 ## Current Website Assessment
 
 The live portfolio site currently presents the network project as "OPNsense + Proxmox Security Control Plane." The card accurately emphasizes OPNsense, DNSSEC, Quad9 DNS-over-TLS, CrowdSec, VictoriaLogs, NetAlertX, OpenCanary, and Proxmox as a visibility/control-plane layer.

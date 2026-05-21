@@ -153,6 +153,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/decision-log.md`: architecture decision records.
 - `docs/homepage-operations-dashboard.md`: Homepage Operations Dashboard architecture and rules.
 - `docs/website-update-suggestions-2026-05-20.md`: suggested public website copy.
+- `docs/portfolio-website-integration-2026-05-21.md`: notes on the live portfolio integration and sanitized website presentation.
 - `docs/project-update-2026-05-20.md`: launch/update copy for GitHub, LinkedIn, resume, and case-study use.
 - `docs/audit-report-2026-05-20.md`: final repo and website audit report.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
@@ -165,3 +166,5 @@ This repo explains the work without publishing live secrets, exact host maps, or
 ## Status
 
 Live production home-network project. Documentation is sanitized and reflects the Homepage dashboard migration and modernization sprint completed on 2026-05-20.
+
+The public portfolio site now presents this project as **Home Network Security Control Plane** and links back to this repository from `https://srkyn.com/`. The website copy intentionally stays role-based and does not expose private dashboards, internal service URLs, raw feeds, exact inventories, or screenshots that reveal operational detail.

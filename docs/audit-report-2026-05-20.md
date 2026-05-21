@@ -4,7 +4,7 @@
 
 The repository already described the OPNsense and Proxmox security-control-plane work, but it needed a tighter update for the 2026-05-20 modernization sprint, Homepage Operations Dashboard migration, live status/recovery feeds, known gaps, and public website copy.
 
-The live website still presents the project as "OPNsense + Proxmox Security Control Plane" and does not yet include Homepage, live operations status, NetBox, Trivy/Syft, recovery tracking, or the Glance retirement.
+Follow-up on 2026-05-21: the live portfolio site now presents the project as "Home Network Security Control Plane" and includes Homepage Operations Dashboard, NetBox, Uptime Kuma, Victoria, OpenCanary, NetAlertX, Trivy/Syft, recovery tracking, and staged-gaps language. It does not expose private dashboards, raw internal feeds, or sensitive screenshots.
 
 ## Repo Files Reviewed
 
@@ -31,17 +31,17 @@ The live website still presents the project as "OPNsense + Proxmox Security Cont
 
 ## Website Reviewed
 
-Reviewed `https://srkyn.com` on 2026-05-21. The Network card currently says:
+Reviewed `https://srkyn.com` on 2026-05-21. The Network card was updated from:
 
 > OPNsense + Proxmox Security Control Plane
 
-It emphasizes OPNsense, DNSSEC, Quad9 DoT, CrowdSec, VictoriaLogs, NetAlertX, OpenCanary, and Proxmox. That is accurate but stale after the Homepage migration.
+It now presents the project as **Home Network Security Control Plane** and summarizes the Homepage Operations Dashboard migration, NetBox, Uptime Kuma, Victoria, NetAlertX, OpenCanary, Trivy/Syft, recovery tracking, and known gaps.
 
 ## Outdated Items Found
 
 | Current wording | Issue | Replacement wording |
 |---|---|---|
-| "OPNsense + Proxmox Security Control Plane" | Misses the new operating model. | "Home Network Security Control Plane" |
+| "OPNsense + Proxmox Security Control Plane" | Missed the new operating model. | "Home Network Security Control Plane" |
 | "logs, canary alerts, asset awareness, and safe on-demand checks" | Missing dashboard, feeds, NetBox, Trivy/Syft, recovery tracking. | "logs, metrics, inventory, canary alerts, vulnerability/SBOM visibility, and recovery-status tracking" |
 | "controls: OPNsense, DNSSEC, Quad9 DoT, CrowdSec, VictoriaLogs, NetAlertX, OpenCanary" | Missing current stack. | "controls: OPNsense, DNSSEC, Quad9 DoT, CrowdSec, Homepage, NetBox, Uptime Kuma, Victoria, NetAlertX, OpenCanary, Trivy/Syft" |
 | Any public wording implying Glance is the active front door | Glance is retired. | "Homepage is the active operations dashboard. Glance was the original lightweight dashboard and was retired from active service after the Homepage migration. Glance backups were preserved." |
