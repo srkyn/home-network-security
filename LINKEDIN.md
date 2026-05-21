@@ -49,7 +49,7 @@ Kuma, Homepage, NetBox, Trivy, Syft, and CrowdSec.
 
 The design prioritizes defensive value on limited hardware: centralized logs,
 unknown-device awareness, canary interaction alerts, config backup/audit, safe
-report-based scanning, and an internal Homepage cockpit. OPNsense remains the enforcement
+report-based scanning, and an internal Homepage dashboard. OPNsense remains the enforcement
 point, while Proxmox provides visibility without sitting inline or affecting
 gaming latency.
 
@@ -76,7 +76,7 @@ goal was practical defensive value on limited hardware:
 - OpenCanary acts as a fake internal NAS tripwire.
 - Uptime Kuma monitors service health.
 - Trivy and Syft provide report-based visibility without automatic remediation.
-- Homepage provides the internal cockpit for daily checks.
+- Homepage provides the internal dashboard for daily checks.
 
 The design is intentionally gaming-safe: no inline proxy, no scheduled
 vulnerability scans, no IPS blocking by default, and no traffic path moved

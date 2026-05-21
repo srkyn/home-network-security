@@ -5,12 +5,12 @@ This roadmap is intentionally conservative because the network is production, no
 ## Now
 
 - Keep Uptime Kuma status page healthy.
-- Fix any `NaN` or unknown values in cockpit widgets.
+- Fix any `NaN` or unknown values in dashboard widgets.
 - Use API widgets only with read-only or least-purpose credentials.
 - Ingest `home_network_status.prom` into VictoriaMetrics/Grafana where practical.
 - Replace the temporary laptop off-host copy with a durable off-host backup target.
 - Run and document restore tests before broad updates.
-- Keep Homepage as the primary cockpit and Glance retired.
+- Keep Homepage as the primary dashboard and Glance retired.
 
 ## Next
 

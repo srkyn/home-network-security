@@ -2,9 +2,9 @@
 
 This document captures recurring maintenance and review habits for the production home-network security project.
 
-## Daily Cockpit Review
+## Daily Dashboard Review
 
-Start with the Homepage Cockpit. It should answer what needs attention without opening every tool.
+Start with the HomeNet Operations Dashboard. It should answer what needs attention without opening every tool.
 
 Review:
 
@@ -70,11 +70,11 @@ Use simple tests after changes:
 - Confirm Uptime Kuma monitors are not falsely alarming.
 - Confirm Grafana, NetBox, and logs still load.
 - Confirm canary fake services are not being repeatedly polled by monitoring.
-- After Proxmox updates, confirm containers autostart and the cockpit loads.
+- After Proxmox updates, confirm containers autostart and the dashboard loads.
 
 ## Control Plane Daily Flow
 
-1. Open Homepage Cockpit.
+1. Open HomeNet Operations Dashboard.
 2. If Mission Status is degraded, inspect the relevant snapshot.
 3. Use Uptime Kuma for availability history.
 4. Use Grafana for deep metrics.

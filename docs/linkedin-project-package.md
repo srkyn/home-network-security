@@ -35,7 +35,7 @@ The main design decision was to keep OPNsense as the traffic enforcement point a
 **Description:**
 Built and documented a lightweight security control plane for a live OPNsense home network using Proxmox LXCs, Homepage, VictoriaLogs, VictoriaMetrics, NetAlertX, OpenCanary, Uptime Kuma, NetBox, Trivy, Syft, and CrowdSec.
 
-The build runs on repurposed hardware: a mini PC for the OPNsense firewall and a recycled 8 GB laptop for Proxmox. The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe report-based scanning, and an internal Homepage cockpit. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
+The build runs on repurposed hardware: a mini PC for the OPNsense firewall and a recycled 8 GB laptop for Proxmox. The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe report-based scanning, and an internal Homepage dashboard. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
 
 **Project URL:**
 https://github.com/srkyn/home-network-security
@@ -60,7 +60,7 @@ The goal was not to build a heavy SIEM or overcomplicate a home network. The goa
 - OpenCanary acts as a fake internal NAS tripwire.
 - Uptime Kuma monitors service health.
 - Trivy and Syft provide report-based visibility without automatic remediation.
-- Homepage provides the internal cockpit for daily checks.
+- Homepage provides the internal dashboard for daily checks.
 
 The design is intentionally gaming-safe: no inline proxy, no scheduled vulnerability scans, no IPS blocking by default, and no traffic path moved through the security node.
 
@@ -75,7 +75,7 @@ https://github.com/srkyn/home-network-security
 
 Keep screenshots sanitized. Crop or blur exact internal details where possible.
 
-- Homepage cockpit overview.
+- Homepage dashboard overview.
 - Uptime Kuma monitor list.
 - VictoriaLogs query showing a redacted OPNsense syslog event.
 - NetAlertX device list with hostnames/MACs blurred.

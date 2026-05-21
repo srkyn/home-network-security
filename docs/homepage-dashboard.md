@@ -1,12 +1,12 @@
-# Homepage Cockpit
+# HomeNet Operations Dashboard
 
 ## Purpose
 
-Homepage is the primary internal cockpit for the production home network. It is designed to show status, recovery posture, security signals, and launch links from one place without exposing privileged admin interfaces.
+Homepage is the primary internal dashboard for the production home network. It is designed to show status, recovery posture, security signals, and launch links from one place without exposing privileged admin interfaces.
 
 ## Why Homepage Replaced Glance
 
-Glance was useful as a lightweight launchpad, but the network needed a richer cockpit:
+Glance was useful as a lightweight launchpad, but the network needed a richer dashboard:
 
 - Live Mission Status.
 - Security Snapshot.
@@ -21,7 +21,7 @@ Homepage became the primary dashboard. Glance was retired from active use and pr
 
 ```mermaid
 flowchart LR
-    Homepage["Homepage Cockpit"] --> Status["status.json"]
+    Homepage["HomeNet Operations Dashboard"] --> Status["status.json"]
     Homepage --> Prom["home_network_status.prom"]
     Homepage --> Notes["phase-notes.html"]
     Homepage --> Uptime["Uptime Kuma Status"]
@@ -30,7 +30,7 @@ flowchart LR
     Homepage --> Admin["Admin Console Links"]
 ```
 
-The cockpit is internal-only. It does not publish public endpoints.
+The dashboard is internal-only. It does not publish public endpoints.
 
 ## Mission Status
 
@@ -72,7 +72,7 @@ The Recovery Snapshot summarizes:
 
 ## status.json
 
-`/cockpit/status.json` is a sanitized local feed for Homepage widgets. It contains operational status values, not secrets.
+`/dashboard/status.json` is a sanitized local feed for Homepage widgets. It contains operational status values, not secrets.
 
 It should not contain:
 
@@ -86,7 +86,7 @@ It should not contain:
 
 ## home_network_status.prom
 
-`/cockpit/home_network_status.prom` exposes selected text-format metrics for dashboarding and later ingestion into the metrics stack.
+`/dashboard/home_network_status.prom` exposes selected text-format metrics for dashboarding and later ingestion into the metrics stack.
 
 Examples of safe metric classes:
 

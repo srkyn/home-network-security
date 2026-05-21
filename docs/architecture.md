@@ -14,7 +14,7 @@ This document describes the public, sanitized architecture model for the OPNsens
 | IDS/IPS | Suricata inspection | Config exists, disabled |
 | VPN | Remote access | WireGuard disabled, OpenVPN has no instances |
 | Traffic shaping | Gaming/latency queue design | Rules/queues exist, pipes disabled |
-| Proxmox security node | Visibility/control plane | LXCs/containers for cockpit, logs, discovery, canary, uptime monitoring, inventory, and on-demand reports |
+| Proxmox security node | Visibility/control plane | LXCs/containers for dashboard, logs, discovery, canary, uptime monitoring, inventory, and on-demand reports |
 | Central logs | OPNsense and canary events | VictoriaLogs with retention and disk caps |
 | Deception | Fake internal NAS/server | OpenCanary enabled with safe services |
 | Uptime monitoring | Service health | Uptime Kuma with SQLite |
@@ -44,7 +44,7 @@ flowchart TD
     LAN --> MGMT["Private administrative access"]
     MGMT --> FW
     LAN --> PVE["Proxmox security node"]
-    PVE --> DASH["Homepage Cockpit"]
+    PVE --> DASH["HomeNet Operations Dashboard"]
     PVE --> LOGS["VictoriaLogs"]
     PVE --> ALERTX["NetAlertX"]
     PVE --> KUMA["Uptime Kuma"]

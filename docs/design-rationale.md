@@ -121,7 +121,7 @@ VictoriaLogs was selected because the project needed a lightweight log backend, 
 
 ## Why Homepage Replaced Glance
 
-Glance was a good lightweight front door, but the operating model grew beyond a link dashboard. Homepage replaced it because the network needed Mission Status, Recovery Snapshot, Security Snapshot, local status feeds, and a clearer cockpit-style hierarchy.
+Glance was a good lightweight front door, but the operating model grew beyond a link dashboard. Homepage replaced it because the network needed Mission Status, Recovery Snapshot, Security Snapshot, local status feeds, and a clearer dashboard-style hierarchy.
 
 Grafana remains the deeper metrics layer. Homepage is the fast daily view: what is healthy, what is stale, what is risky, and where to click next.
 
