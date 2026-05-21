@@ -10,6 +10,8 @@ This repository is public, so it documents the security project without exposing
 - Full internal IP plans.
 - Real hostnames, usernames, serial numbers, MAC addresses, or ISP account details.
 - Screenshots showing sensitive firewall, DHCP, DNS, ARP, VPN, or user/session data.
+- Screenshots with visible browser tabs, bookmarks, profiles, downloads, extensions, or desktop notifications.
+- Raw dashboard configuration files if they contain tokens, labels, internal host maps, or private hostnames.
 
 ## Usually Redact
 
@@ -37,7 +39,17 @@ Before publishing a screenshot:
 - Blur hostnames, usernames, and MAC addresses.
 - Blur DNS query logs that reveal personal usage.
 - Blur certificate, VPN, and key material.
+- Crop or blur browser tabs, bookmarks, toolbar extensions, profile icons, and download bars.
+- Crop or blur dashboard URLs if they reveal internal hostnames, paths, or tokens.
 - Re-read the screenshot at full size before committing it.
+
+## Dashboard And Telemetry Files
+
+- Do not publish live dashboard screenshots unless internal IPs, tokens, usernames, browser chrome, and sensitive labels are cropped or blurred.
+- Do not publish raw `status.json` if it contains sensitive hostnames, exact internal maps, usernames, or private paths.
+- Do not publish `.prom` files if labels reveal sensitive hostnames, device names, exact internal topology, or user behavior.
+- Public docs should use roles such as `firewall`, `Proxmox host`, `secops-core`, `canary host`, and `access point` instead of a full private host map.
+- Sanitized diagrams are preferred over browser screenshots.
 
 ## Good Portfolio Pattern
 

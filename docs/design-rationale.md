@@ -94,7 +94,7 @@ The mentality is that a portfolio should demonstrate judgment, not publish a tar
 
 ## Future Direction
 
-The next meaningful improvements are segmentation, IDS/IPS enablement and tuning, VPN only if there is a real remote-access need, and clearer operational evidence through sanitized screenshots or change logs.
+The next meaningful improvements are durable off-host backups, staged Proxmox admin hardening, segmentation testing, remote access only if there is a real need and test path, and clearer operational evidence through sanitized diagrams or change logs.
 
 The mentality is iteration. I want each added control to have a reason, a validation step, and a maintenance habit. That is how a home lab becomes real experience instead of a collection of toggles.
 
@@ -119,9 +119,11 @@ The tradeoff is that Docker-in-LXC needs explicit features and a bit more care. 
 
 VictoriaLogs was selected because the project needed a lightweight log backend, not a heavyweight SIEM. The goal is searchable evidence for OPNsense and canary events with retention and disk caps. This matches the size of the environment and avoids spending most of the host's RAM on the logging layer.
 
-## Why Glance
+## Why Homepage Replaced Glance
 
-Glance is the dashboard because it is a front door, not an analytics platform. Grafana is useful when rich time-series panels are the main goal, but this setup needed a low-memory cockpit: health, links, runbook shortcuts, and release awareness.
+Glance was a good lightweight front door, but the operating model grew beyond a link dashboard. Homepage replaced it because the network needed Mission Status, Recovery Snapshot, Security Snapshot, local status feeds, and a clearer cockpit-style hierarchy.
+
+Grafana remains the deeper metrics layer. Homepage is the fast daily view: what is healthy, what is stale, what is risky, and where to click next.
 
 ## Why Uptime Kuma Uses SQLite
 
@@ -133,4 +135,4 @@ The fake NAS creates a signal that should be rare. Normal household use should n
 
 ## Why Scanning Is Manual
 
-Nuclei and Trivy are useful, but scheduled scanning can create noise, load, and accidental scope creep. They are installed as safe manual runners so the operator chooses when and where to scan. That keeps the project defensive and controlled.
+Trivy and Syft are useful for visibility, but scheduled or automatic remediation can create noise, load, and breakage. They are used as report generators and triage inputs so the operator chooses when and what to update. That keeps the project defensive and controlled.
