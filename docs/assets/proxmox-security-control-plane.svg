@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">Lightweight Proxmox Security Control Plane</title>
-  <desc id="desc">Sanitized architecture diagram showing OPNsense, Proxmox LXCs, logs, discovery, canary, dashboard, and on-demand runners.</desc>
+  <desc id="desc">Sanitized architecture diagram showing OPNsense, Proxmox LXCs, Homepage cockpit, logs, discovery, canary, and report runners.</desc>
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#101820"/>
@@ -44,7 +44,7 @@
   </g>
 
   <text x="60" y="70" class="title">Lightweight Home Security Control Plane</text>
-  <text x="60" y="100" class="subtitle">OPNsense remains the enforcement point; Proxmox provides visibility, canary signal, backups, and safe on-demand checks.</text>
+  <text x="60" y="100" class="subtitle">OPNsense remains the enforcement point; Proxmox provides visibility, canary signal, backups, and report-based checks.</text>
 
   <rect x="60" y="160" width="220" height="130" class="card"/>
   <text x="88" y="205" class="label">Internet / WAN</text>
@@ -63,9 +63,9 @@
   <text x="760" y="193" class="small">Laptop host, lid sleep disabled, LXC-first design</text>
 
   <rect x="770" y="225" width="155" height="105" class="card core"/>
-  <text x="792" y="260" class="label">Glance</text>
-  <text x="792" y="285" class="small">Dashboard</text>
-  <text x="792" y="307" class="tiny">One page to start</text>
+  <text x="792" y="260" class="label">Homepage</text>
+  <text x="792" y="285" class="small">Cockpit</text>
+  <text x="792" y="307" class="tiny">Mission status</text>
 
   <rect x="955" y="225" width="155" height="105" class="card core"/>
   <text x="977" y="260" class="label">Uptime</text>
@@ -89,8 +89,8 @@
 
   <rect x="955" y="495" width="155" height="105" class="card core"/>
   <text x="977" y="530" class="label">Runners</text>
-  <text x="977" y="555" class="small">Nuclei / Trivy</text>
-  <text x="977" y="577" class="tiny">On-demand only</text>
+  <text x="977" y="555" class="small">Trivy / Syft</text>
+  <text x="977" y="577" class="tiny">Reports only</text>
 
   <rect x="370" y="420" width="260" height="120" class="card"/>
   <text x="400" y="463" class="label">Trusted LAN</text>
@@ -111,6 +111,5 @@
 
   <rect x="60" y="600" width="570" height="58" class="pill"/>
   <text x="85" y="624" class="pilltext">Design rule: visibility without packet-path interference</text>
-  <text x="85" y="646" class="tiny">No inline proxy, no scheduled vulnerability scans, no IPS blocking, no heavy SIEM.</text>
+  <text x="85" y="646" class="tiny">No inline proxy, no broad auto-remediation, no IPS blocking, no heavy SIEM.</text>
 </svg>
-

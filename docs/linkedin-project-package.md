@@ -4,7 +4,7 @@ Use this page to turn the project into LinkedIn profile copy, a featured project
 
 ## Project Title
 
-Lightweight Home Security Control Plane for OPNsense using Proxmox, VictoriaLogs, NetAlertX, OpenCanary, Uptime Kuma, Glance, Nuclei, Trivy, opnDossier, and CrowdSec
+Lightweight Home Security Control Plane for OPNsense using Proxmox, Homepage, VictoriaLogs, VictoriaMetrics, NetAlertX, OpenCanary, Uptime Kuma, NetBox, Trivy, Syft, and CrowdSec
 
 ## Short Description
 
@@ -19,7 +19,7 @@ Built a low-overhead home security control plane around an OPNsense firewall and
 - Canary/deception engineering with OpenCanary.
 - Asset discovery and unknown-device review with NetAlertX.
 - Uptime monitoring with Uptime Kuma.
-- Safe use of Nuclei and Trivy without intrusive scheduled scanning.
+- Safe use of Trivy and Syft without intrusive scheduled scanning or automatic remediation.
 - Operational documentation, rollback planning, and public redaction discipline.
 
 ## Why It Matters
@@ -33,19 +33,19 @@ The main design decision was to keep OPNsense as the traffic enforcement point a
 **Title:** Lightweight Home Security Control Plane for OPNsense
 
 **Description:**
-Built and documented a lightweight security control plane for a live OPNsense home network using Proxmox LXCs, VictoriaLogs, NetAlertX, OpenCanary, Uptime Kuma, Glance, opnDossier, Nuclei, Trivy, and CrowdSec.
+Built and documented a lightweight security control plane for a live OPNsense home network using Proxmox LXCs, Homepage, VictoriaLogs, VictoriaMetrics, NetAlertX, OpenCanary, Uptime Kuma, NetBox, Trivy, Syft, and CrowdSec.
 
-The build runs on repurposed hardware: a mini PC for the OPNsense firewall and a recycled 8 GB laptop for Proxmox. The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe on-demand scanning, and a one-page dashboard. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
+The build runs on repurposed hardware: a mini PC for the OPNsense firewall and a recycled 8 GB laptop for Proxmox. The design prioritizes defensive value on limited hardware: centralized logs, unknown-device awareness, canary interaction alerts, config backup/audit, safe report-based scanning, and an internal Homepage cockpit. OPNsense remains the enforcement point, while Proxmox provides visibility without sitting inline or affecting gaming latency.
 
 **Project URL:**
 https://github.com/srkyn/home-network-security
 
 **Skills to attach:**
-Network Security, OPNsense, Proxmox, Linux Containers, Security Operations, Log Management, Threat Detection, OpenCanary, Nuclei, Trivy, CrowdSec, Documentation
+Network Security, OPNsense, Proxmox, Linux Containers, Security Operations, Log Management, Threat Detection, OpenCanary, Trivy, Syft, CrowdSec, Documentation
 
 ## Resume Bullet
 
-Built a lightweight home security control plane for an OPNsense network using Proxmox LXCs, VictoriaLogs, NetAlertX, OpenCanary, Uptime Kuma, and on-demand Nuclei/Trivy runners; centralized firewall/canary logs, added unknown-device awareness and deception alerts, configured safe backups/audits, and preserved gaming latency by keeping all controls out of the traffic path.
+Built a lightweight home security control plane for an OPNsense network using Proxmox LXCs, Homepage, VictoriaLogs, VictoriaMetrics, NetAlertX, OpenCanary, Uptime Kuma, NetBox, Trivy, and Syft; centralized firewall/canary logs, added unknown-device awareness and deception alerts, configured safe backups/audits, and preserved gaming latency by keeping all controls out of the traffic path.
 
 ## Launch Post Draft
 
@@ -59,8 +59,8 @@ The goal was not to build a heavy SIEM or overcomplicate a home network. The goa
 - NetAlertX tracks unknown devices.
 - OpenCanary acts as a fake internal NAS tripwire.
 - Uptime Kuma monitors service health.
-- Nuclei, Trivy, and opnDossier run only on demand.
-- Glance provides a one-page dashboard for daily checks.
+- Trivy and Syft provide report-based visibility without automatic remediation.
+- Homepage provides the internal cockpit for daily checks.
 
 The design is intentionally gaming-safe: no inline proxy, no scheduled vulnerability scans, no IPS blocking by default, and no traffic path moved through the security node.
 
@@ -75,7 +75,7 @@ https://github.com/srkyn/home-network-security
 
 Keep screenshots sanitized. Crop or blur exact internal details where possible.
 
-- Glance dashboard overview.
+- Homepage cockpit overview.
 - Uptime Kuma monitor list.
 - VictoriaLogs query showing a redacted OPNsense syslog event.
 - NetAlertX device list with hostnames/MACs blurred.

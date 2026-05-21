@@ -14,7 +14,7 @@ This document describes the public, sanitized architecture model for the OPNsens
 | IDS/IPS | Suricata inspection | Config exists, disabled |
 | VPN | Remote access | WireGuard disabled, OpenVPN has no instances |
 | Traffic shaping | Gaming/latency queue design | Rules/queues exist, pipes disabled |
-| Proxmox security node | Visibility/control plane | LXCs for dashboard, logs, discovery, canary, uptime monitoring, and on-demand runners |
+| Proxmox security node | Visibility/control plane | LXCs/containers for cockpit, logs, discovery, canary, uptime monitoring, inventory, and on-demand reports |
 | Central logs | OPNsense and canary events | VictoriaLogs with retention and disk caps |
 | Deception | Fake internal NAS/server | OpenCanary enabled with safe services |
 | Uptime monitoring | Service health | Uptime Kuma with SQLite |
@@ -44,10 +44,12 @@ flowchart TD
     LAN --> MGMT["Private administrative access"]
     MGMT --> FW
     LAN --> PVE["Proxmox security node"]
-    PVE --> DASH["Glance dashboard"]
+    PVE --> DASH["Homepage Cockpit"]
     PVE --> LOGS["VictoriaLogs"]
     PVE --> ALERTX["NetAlertX"]
     PVE --> KUMA["Uptime Kuma"]
+    PVE --> NETBOX["NetBox"]
+    PVE --> REPORTS["Trivy / Syft reports"]
     PVE --> CANARY["OpenCanary fake NAS"]
     SYSLOG --> LOGS
     CANARY --> LOGS
@@ -89,6 +91,6 @@ The Proxmox node runs on laptop hardware. Lid-close and sleep behavior were conf
 - Add VLAN or guest network segmentation if supported by switching/access point hardware.
 - Enable and tune IDS/IPS if alert review becomes part of regular operations.
 - Enable traffic-shaping pipes if the gaming/latency queue model is meant to be active.
-- Add sanitized screenshots with sensitive fields blurred.
+- Add sanitized diagrams or cropped screenshots with sensitive fields blurred.
 - Add an example change log for a firewall rule review.
 - Reserve stable DHCP addresses for portfolio-facing internal services so dashboard links do not drift.
