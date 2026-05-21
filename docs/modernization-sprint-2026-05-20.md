@@ -2,6 +2,12 @@
 
 This document is a sanitized narrative of the production home-network modernization sprint. It intentionally avoids secrets, raw configurations, exact host maps, public IP information, MAC addresses, tokens, and screenshots.
 
+## Executive Summary
+
+On 2026-05-20, the project moved from a useful home-network security lab into a more production-style operating model. OPNsense stayed the enforcement point, Proxmox stayed the visibility/control-plane layer, and Homepage became the primary HomeNet Operations Dashboard.
+
+The sprint improved exposure reduction, backup discipline, source-of-truth documentation, deception signal, vulnerability/SBOM visibility, and live recovery/security snapshots while avoiding WAN exposure, raw Docker socket access, privileged iframes, broad endpoint agents, rushed VLANs, and automatic remediation.
+
 ## Starting Point
 
 The network began as a practical home security build around OPNsense and a small Proxmox security-services node. The early control plane focused on lightweight visibility: uptime checks, logs, asset awareness, canary services, and manual scanners.
@@ -72,7 +78,7 @@ Phase 2 turned the sprint into an operational program:
 - Flagged Proxmox root SSH and Proxmox firewall policy as staged hardening items.
 - Found repeated Proxmox failed logins from a local source.
 
-## Control-Plane Hardening Phase 3
+## Phase 3: Control-Plane Hardening
 
 Phase 3 investigated the local failed-login source. It was identified as the user laptop, not an unknown intruder. The likely cause was a stale browser session, saved credential, or polling behavior.
 
@@ -82,7 +88,7 @@ Phase 3 also:
 - Created tested NetBox backups.
 - Kept containment changes staged instead of blocking a known user device.
 
-## Operational Resilience Phase 4
+## Phase 4: Operational Resilience
 
 Phase 4 emphasized recovery:
 
@@ -93,7 +99,7 @@ Phase 4 emphasized recovery:
 
 The update was intentionally gated behind backup and monitoring readiness.
 
-## Monitoring/Backup Phase 5
+## Phase 5: Monitoring And Backup Readiness
 
 Phase 5 created freshness checks and backup templates:
 
@@ -104,7 +110,7 @@ Phase 5 created freshness checks and backup templates:
 
 Container updates were deferred because the off-host backup and restore gate had not passed.
 
-## HomeNet Operations Dashboard Migration
+## Dashboard Migration: Glance To Homepage
 
 Homepage was tested as a replacement for the older Glance front door. It became the better fit because the goal had shifted from a simple launchpad to a dashboard with live operational state, recovery state, and security state.
 
@@ -115,7 +121,7 @@ The migration:
 - Preserved Glance backups and rollback notes.
 - Added local sanitized dashboard feeds for status, metrics, and phase notes.
 
-## Live Widget Pack
+## Live Operations Widgets
 
 The dashboard gained live status areas:
 
@@ -126,6 +132,10 @@ The dashboard gained live status areas:
 - Read-only or least-purpose integrations where appropriate.
 
 Raw Docker socket access was not added. Privileged admin UIs were not embedded.
+
+## Security/Recovery Posture
+
+The post-sprint posture is intentionally conservative. Security signal is available through OPNsense, CrowdSec, VictoriaLogs, OpenCanary, NetAlertX, Trivy/Syft, and the dashboard snapshots. Recovery signal is available through backup/freshness checks, but durable off-host backup and restore validation remain the most important next gaps.
 
 ## What Changed
 
@@ -185,3 +195,14 @@ Raw Docker socket access was not added. Privileged admin UIs were not embedded.
 - A dashboard should reduce decisions, not become another noisy system.
 - High-signal controls are more valuable than heavy tools with unclear maintenance burden.
 - Public documentation can show engineering discipline without publishing a target map.
+
+## Next Actions
+
+- Fix any stale or `NaN` dashboard values.
+- Add or validate the internal Uptime Kuma status page slug.
+- Ingest the Prometheus-style home status metrics into VictoriaMetrics/Grafana.
+- Implement durable off-host backup and run restore tests.
+- Add read-only API widgets only with least-privilege tokens.
+- Continue container updates one service at a time after backup gates.
+- Choose a remote access path and endpoint pilot only after scoped testing.
+- Stage VLAN work with a wired test before touching household Wi-Fi.

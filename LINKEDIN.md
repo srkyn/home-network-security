@@ -2,39 +2,43 @@
 
 ## Featured Project Entry
 
-**Title:** OPNsense Home Network Security Lab
+**Title:** Home Network Security Control Plane
 
 **Description:**
-Documented a live OPNsense home network perimeter covering WAN/LAN firewalling,
-DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS operations, DNS-bypass blocking,
-CrowdSec, private administration, traffic-shaping notes, and recurring review.
+Documented a daily-use home network security build using OPNsense as the
+enforcement layer and Proxmox as a lightweight visibility/control plane.
+Homepage now serves as the internal HomeNet Operations Dashboard, with NetBox
+inventory, Uptime Kuma checks, Victoria logs/metrics, OpenCanary signal,
+Trivy/Syft visibility, and backup/freshness tracking.
 
 The public repository shows architecture and security decisions without exposing
 raw firewall exports, public IPs, keys, hostnames, or internal addressing.
 
 **Skills to attach:**
-Network Security, Firewall Administration, OPNsense, DNS Security, DNSSEC,
-CrowdSec, DHCP, Traffic Shaping, Security Operations, Documentation
+Network Security, Firewall Administration, OPNsense, Proxmox, Homepage, NetBox,
+Uptime Kuma, OpenCanary, Trivy, Syft, Security Operations, Documentation
 
 **Project URL:**
 https://github.com/srkyn/home-network-security
 
 ## Launch Post Draft
 
-I published a public writeup of my OPNsense home network security project:
+I updated the public writeup for my home network security project:
 
 https://github.com/srkyn/home-network-security
 
-It covers WAN/LAN firewalling, DNSSEC, DNS-over-TLS with Quad9, DHCP/local DNS,
-DNS-bypass prevention, CrowdSec firewall blocking, private administration,
-traffic-shaping notes, and recurring validation checks.
+It covers OPNsense enforcement, Proxmox-hosted visibility services, Homepage
+as the HomeNet Operations Dashboard, NetBox inventory, uptime checks, logs and
+metrics, OpenCanary signal, Trivy/Syft visibility, and backup/freshness
+tracking.
 
 I did not publish raw firewall exports, public IPs, keys, hostnames, or detailed
 internal addressing. The point is to show security engineering judgment without
 turning a portfolio project into a target map.
 
 The useful part was separating current controls from future work: what is
-enabled, why it exists, how it can be validated, and what should stay private.
+enabled, why it exists, how it can be validated, what remains a known gap, and
+what should stay private.
 
 #cybersecurity #networksecurity #opnsense #homelab #securityoperations #firewall #dnssecurity
 

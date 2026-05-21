@@ -4,7 +4,7 @@
   <img src="./docs/assets/opnsense-home-network-security.svg" alt="OPNsense Home Network Security project banner" width="100%">
 </p>
 
-Sanitized documentation for a production home network security modernization project: OPNsense at the edge, a lightweight Proxmox security control plane, Homepage as the internal dashboard, Grafana for deep metrics, Uptime Kuma for availability, NetBox as the source of truth, VictoriaMetrics/VictoriaLogs for telemetry, OpenCanary for deception, and Trivy/Syft for supply-chain visibility.
+Sanitized documentation for a production-style home network security modernization project: OPNsense as the enforcement layer, Proxmox as the visibility/control-plane layer, and Homepage as the internal HomeNet Operations Dashboard. The project brings logs, metrics, inventory, deception, uptime checks, vulnerability/SBOM visibility, and recovery tracking into one practical operating model.
 
 The network supports normal daily use: work, school, gaming, streaming, phones, access points, monitoring, and security learning. That changed the engineering standard. This is not treated as a disposable homelab. Stability, rollback, backup validation, low latency, and no lockouts are first-class requirements.
 
@@ -14,7 +14,8 @@ This public repository does not contain secrets, raw configuration exports, publ
 
 - OPNsense remains the enforcement point for routing, firewall policy, DNS, DHCP, and edge security.
 - Proxmox runs the lightweight visibility and control-plane services without sitting inline with network traffic.
-- Homepage is the primary internal HomeNet Operations Dashboard.
+- Homepage is the primary internal HomeNet Operations Dashboard / Command Center.
+- Homepage serves an operations status feed, Prometheus-style status metrics, and phase notes for internal widgets.
 - Glance was tested and used earlier, then retired from active use after the Homepage dashboard migration.
 - Grafana remains the deep metrics and dashboarding layer.
 - Uptime Kuma remains the uptime and alerting view.
@@ -25,7 +26,8 @@ This public repository does not contain secrets, raw configuration exports, publ
 - Trivy and Syft provide vulnerability and SBOM visibility without automatic remediation.
 - UPnP/NAT-PMP was disabled to reduce unnecessary exposure.
 - Proxmox rpcbind was disabled after confirming NFS was not in use.
-- WireGuard, endpoint agents, and VLAN migration were deferred until controlled testing paths are ready.
+- Off-host backup/restore validation, remote access choice, endpoint pilot, and VLAN segmentation remain known gaps.
+- WireGuard/Tailscale, endpoint agents, and VLAN migration were deferred until controlled testing paths are ready.
 - No dashboard or admin console is exposed to the public internet.
 - No raw Docker socket is mounted into the dashboard.
 - OPNsense, Proxmox, and access point admin UIs are linked, not embedded.
@@ -52,10 +54,14 @@ flowchart LR
     Core --> NetBox["NetBox"]
     Core --> Discovery["NetAlertX"]
     Core --> Reports["Trivy / Syft Reports"]
+    Core --> StatusFeed["Operations Status Feed"]
+    Core --> MetricsFeed["Prometheus-style Status Metrics"]
 
     Firewall -- "firewall events" --> Logs
     Canary -- "canary events" --> Logs
-    Homepage -- "status.json / .prom" --> Grafana
+    StatusFeed --> Homepage
+    MetricsFeed --> Homepage
+    MetricsFeed --> Grafana
 ```
 
 ## HomeNet Operations Dashboard
@@ -73,7 +79,17 @@ The dashboard serves sanitized local status, metrics, and notes feeds for widget
 
 The dashboard includes Mission Status, Security Snapshot, Recovery Snapshot, observability links, inventory links, and documentation links. Privileged admin interfaces are not embedded in iframes.
 
-See [docs/homepage-dashboard.md](docs/homepage-dashboard.md).
+See [docs/homepage-operations-dashboard.md](docs/homepage-operations-dashboard.md).
+
+## Current Status
+
+Active controls include OPNsense firewall/DNS enforcement, CrowdSec, Homepage, Uptime Kuma, NetBox, VictoriaMetrics, VictoriaLogs, NetAlertX, OpenCanary, Trivy/Syft reporting, and backup/freshness checks.
+
+Inactive or deferred controls include full VLAN migration, AP VLAN trunking, remote access, broad endpoint telemetry, automatic remediation, broad vulnerability scanning, and heavy packet-capture/SIEM lab stacks in production.
+
+Known gaps are documented directly: durable off-host backup and restore validation, remote access decision, one endpoint pilot, staged segmentation, and safer future API/widget integrations.
+
+Intentionally not exposed: public dashboards, WAN admin consoles, raw Docker socket access, privileged admin iframes, secrets, raw configs, full inventories, and sensitive screenshots.
 
 ## Control Areas
 
@@ -95,6 +111,12 @@ See [docs/homepage-dashboard.md](docs/homepage-dashboard.md).
 | Backups | Local backups, temporary off-host copy, restore-test workflow | Recovery status and roadmap |
 | Remote access | Deferred because double NAT and testing path require planning | Decision log |
 | Segmentation | VLANs documented but not migrated | Roadmap |
+
+## Why This Matters
+
+Home networks become hard to reason about when firewall policy, DNS behavior, asset awareness, logs, backups, and dashboard state are scattered. This project treats stability as part of security: visibility before enforcement, recovery before risky updates, and staged changes before broad rollout.
+
+Not every security tool belongs in a daily production network. The public story is intentionally about judgment, not maximum tool count.
 
 ## Design Principles
 
@@ -129,7 +151,10 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/current-state.md`: current sanitized architecture and control-plane snapshot.
 - `docs/modernization-sprint-2026-05-20.md`: modernization sprint narrative.
 - `docs/decision-log.md`: architecture decision records.
-- `docs/homepage-dashboard.md`: Homepage dashboard architecture and rules.
+- `docs/homepage-operations-dashboard.md`: Homepage Operations Dashboard architecture and rules.
+- `docs/website-update-suggestions-2026-05-20.md`: suggested public website copy.
+- `docs/project-update-2026-05-20.md`: launch/update copy for GitHub, LinkedIn, resume, and case-study use.
+- `docs/audit-report-2026-05-20.md`: final repo and website audit report.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.

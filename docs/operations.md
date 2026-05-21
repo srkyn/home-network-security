@@ -14,22 +14,28 @@ Review:
 - Uptime Kuma for availability history and current monitor state.
 - NetBox for inventory or planned-change context.
 - VictoriaLogs when an event needs evidence.
+- Grafana for deeper metrics after the quick dashboard review.
 
 If Mission Status is green except Backups, the expected next action is backup improvement, not emergency response.
 
 ## Weekly Review
 
-- Review firewall log denies for repeated unexpected traffic.
-- Review CrowdSec decisions and blocklist behavior.
-- Confirm DNS services are healthy.
 - Review Homepage Mission Status and snapshots.
 - Review Uptime Kuma monitors.
 - Review NetAlertX for unknown or newly seen devices.
 - Review OpenCanary events and investigate any interaction with the fake host.
+- Review firewall log denies for repeated unexpected traffic.
+- Review CrowdSec decisions and blocklist behavior.
+- Confirm DNS services are healthy.
 - Check Trivy/Syft freshness.
 - Check backup freshness.
+- Check NetBox backup status.
+- Check Proxmox config backup status.
+- Check secops-core backup status.
 - Check the Proxmox failed-login watch.
+- Check dashboard configuration backup status.
 - Confirm no temporary firewall rules were left open.
+- Confirm no temporary dashboard/API credentials were left in config.
 - Note any network changes worth documenting.
 
 ## Monthly Review
@@ -58,6 +64,15 @@ For meaningful changes, document:
 - Review date.
 
 Do not stack multiple risky changes before testing.
+
+## Change Gates
+
+- No container update before the backup/restore gate is satisfied or the exception is explicitly documented.
+- No VLAN migration without a physical rollback path and a known-good management path.
+- No API widgets without least-privilege credentials and a reason for the widget.
+- No raw Docker socket mounting.
+- No WAN exposure for dashboards or admin UIs.
+- No broad scanners or endpoint agents without a scoped test plan.
 
 ## Validation Tests
 

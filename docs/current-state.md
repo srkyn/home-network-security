@@ -41,7 +41,7 @@ flowchart LR
 - OpenCanary provides deception.
 - NetAlertX provides local device-awareness signals.
 
-## Current Dashboard/Dashboard
+## Current Dashboard
 
 Homepage is the primary HomeNet Operations Dashboard. Glance was retired from active use after the migration and preserved only as rollback material.
 
@@ -73,8 +73,8 @@ Homepage provides:
 - secops-core backup exists outside the public repo.
 - NetBox manual backup script exists and was tested.
 - Homepage/Glance dashboard backups exist outside the public repo.
-- A temporary laptop off-host copy was used as a stopgap.
-- Non-destructive restore testing passed for key backup classes.
+- A temporary laptop off-host copy may be used as a stopgap when a durable off-host target is unavailable.
+- Restore testing remains a required gate before broad stateful updates.
 
 ## Known Gaps
 

@@ -14,6 +14,12 @@ OPNsense is the control point because the firewall should be the place where net
 
 The mentality here is ownership. I do not want the ISP router to be a mystery box doing the important work. I want a system where I can see the rules, back up the configuration, review changes, and understand the path traffic takes.
 
+## Why Proxmox Is The Visibility/Control Plane
+
+Proxmox is not inline and does not decide whether traffic is allowed. It hosts the tools that make the network easier to understand: Homepage, Uptime Kuma, Grafana, VictoriaMetrics, VictoriaLogs, NetBox, NetAlertX, OpenCanary, and report runners.
+
+That separation matters. If the Proxmox node is down, normal internet should still route through OPNsense. The control plane improves visibility, recovery, and documentation without becoming a fragile dependency for household connectivity.
+
 ## WAN Hardening
 
 The WAN interface blocks private networks and bogon networks. This is a simple control, but it matches the way I think about security: start by rejecting traffic that should not make sense at that boundary.
@@ -62,6 +68,12 @@ The LAN firewall includes a DNS-bypass block rule so clients are pushed toward t
 
 The mentality is enforcement over hope. If DNS is meant to be a control point, clients cannot be allowed to casually route around it. This is the difference between "I configured DNS" and "the network is actually expected to use it."
 
+## Why UPnP/NAT-PMP Was Disabled
+
+UPnP/NAT-PMP can create inbound exposure automatically. Disabling it was a low-drama reduction in attack surface that fit the production-safe sprint model: back up first, change one exposure-control setting, then verify normal use.
+
+The tradeoff is that some gaming or peer-to-peer applications may need manual troubleshooting later. That is preferable to leaving broad automatic port mapping enabled by default.
+
 ## CrowdSec
 
 CrowdSec is enabled with the agent, local API, firewall bouncer, and blocklist aliases. This adds a reputation and community-signal layer to the firewall.
@@ -79,6 +91,12 @@ The mentality is honesty about operational load. IDS/IPS is only valuable if som
 WireGuard and OpenVPN are not currently active. Remote access is therefore future work, not a current capability.
 
 The mentality is controlled exposure. Remote access should be added when there is a clear reason, a secure authentication model, and a review process. Until then, not exposing remote management is a valid security choice.
+
+## Why rpcbind Was Disabled
+
+Proxmox had `rpcbind` available, but NFS was not in use. After checking the dependency, the service was disabled to remove an unnecessary listener.
+
+This is deliberately modest hardening: remove what is not needed, validate that storage and containers still work, and document how to revisit the decision if NFS is introduced later.
 
 ## Traffic Shaping
 
@@ -125,6 +143,12 @@ Glance was a good lightweight front door, but the operating model grew beyond a 
 
 Grafana remains the deeper metrics layer. Homepage is the fast daily view: what is healthy, what is stale, what is risky, and where to click next.
 
+## Why Local Status Feeds Came Before Privileged API Widgets
+
+Homepage can support richer API widgets, but privileged tokens should not be the first move in a public-facing portfolio project or a daily-use network. The local operations status feed and Prometheus-style metrics feed provide useful live state without adding broad credentials.
+
+Read-only API widgets can be added later, one at a time, with least-privilege tokens and a clear reason for each integration.
+
 ## Why Uptime Kuma Uses SQLite
 
 Uptime Kuma was configured with SQLite because the monitor set is small. Running MariaDB for a handful of home service checks would add unnecessary memory and maintenance overhead. SQLite is simpler to back up and easier to reason about.
@@ -133,6 +157,32 @@ Uptime Kuma was configured with SQLite because the monitor set is small. Running
 
 The fake NAS creates a signal that should be rare. Normal household use should not touch it. That makes canary interaction more meaningful than another noisy vulnerability dashboard.
 
+Canary lures were added to make accidental or exploratory interaction more visible. Public docs describe the idea without publishing real lure contents, exact paths, or raw logs.
+
 ## Why Scanning Is Manual
 
 Trivy and Syft are useful for visibility, but scheduled or automatic remediation can create noise, load, and breakage. They are used as report generators and triage inputs so the operator chooses when and what to update. That keeps the project defensive and controlled.
+
+## Why Raw Docker Socket Is Avoided
+
+The Docker socket is effectively administrative control over containers. Mounting it into a dashboard would make a convenience feature more privileged than it looks.
+
+If container status visibility is needed later, the safer path is a docker-socket-proxy with write methods disabled and a narrow widget purpose.
+
+## Why Admin UIs Are Linked, Not Embedded
+
+OPNsense, Proxmox, and FreshTomato are privileged admin interfaces. The dashboard links to them but does not iframe them or work around their browser protections.
+
+That keeps authentication boundaries clear and avoids turning the dashboard into a brittle wrapper around sensitive consoles.
+
+## Why Off-Host Backup/Restore Is The Next Critical Gap
+
+Local backups are useful, but they do not solve host loss, disk loss, or operator mistakes. The next recovery milestone is durable off-host backup plus a documented restore test.
+
+Container updates, stateful service upgrades, and larger control-plane changes should wait behind that gate.
+
+## Why VLANs Are Staged, Not Rushed
+
+Segmentation is valuable, but a rushed VLAN migration can break DHCP, DNS, Wi-Fi, management access, and daily household use. The current flat LAN is documented honestly.
+
+The staged path is one wired VLAN test first, then management/IoT/guest segmentation only after the physical path, AP support, firewall rules, and rollback plan are clear.

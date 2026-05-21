@@ -119,12 +119,14 @@ The design intentionally avoids controls that would interfere with latency or th
 ## Future Hardening
 
 - Durable off-host backup target.
+- Restore test after off-host backup is in place.
 - Proxmox named admin and MFA.
 - SSH key-only plan.
 - Proxmox firewall staging.
 - One endpoint telemetry pilot.
 - One wired VLAN test before household migration.
 - docker-socket-proxy for container visibility.
+- Least-privilege read-only API widgets after the local status-feed model is stable.
 
 ## What Stays Private
 

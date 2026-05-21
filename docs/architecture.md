@@ -14,7 +14,8 @@ This document describes the public, sanitized architecture model for the OPNsens
 | IDS/IPS | Suricata inspection | Config exists, disabled |
 | VPN | Remote access | WireGuard disabled, OpenVPN has no instances |
 | Traffic shaping | Gaming/latency queue design | Rules/queues exist, pipes disabled |
-| Proxmox security node | Visibility/control plane | LXCs/containers for dashboard, logs, discovery, canary, uptime monitoring, inventory, and on-demand reports |
+| Proxmox security node | Visibility/control plane | LXCs/containers for Homepage, logs, metrics, discovery, canary, uptime monitoring, inventory, and on-demand reports |
+| Homepage Operations Dashboard | Daily operations view | Mission Status, Security Snapshot, Recovery Snapshot, operations status feed, and Prometheus-style status metrics |
 | Central logs | OPNsense and canary events | VictoriaLogs with retention and disk caps |
 | Deception | Fake internal NAS/server | OpenCanary enabled with safe services |
 | Uptime monitoring | Service health | Uptime Kuma with SQLite |
@@ -45,11 +46,13 @@ flowchart TD
     MGMT --> FW
     LAN --> PVE["Proxmox security node"]
     PVE --> DASH["HomeNet Operations Dashboard"]
+    PVE --> HOME["Homepage Operations Dashboard"]
     PVE --> LOGS["VictoriaLogs"]
     PVE --> ALERTX["NetAlertX"]
     PVE --> KUMA["Uptime Kuma"]
     PVE --> NETBOX["NetBox"]
     PVE --> REPORTS["Trivy / Syft reports"]
+    PVE --> STATUS["status feed / metrics feed"]
     PVE --> CANARY["OpenCanary fake NAS"]
     SYSLOG --> LOGS
     CANARY --> LOGS
@@ -80,7 +83,7 @@ WireGuard is disabled and OpenVPN has no configured instances. Remote access sho
 
 ### Security Control Plane
 
-The Proxmox security node is deliberately not inline. It receives logs, hosts monitoring and discovery tools, provides a canary, and runs safe manual checks. Normal client traffic continues to route through OPNsense, not through the Proxmox security node.
+The Proxmox security node is deliberately not inline. It hosts Homepage, receives logs, hosts monitoring and discovery tools, provides a canary, tracks backup/report freshness, and runs safe manual checks. Normal client traffic continues to route through OPNsense, not through the Proxmox security node.
 
 ### Laptop Host Considerations
 
@@ -93,4 +96,4 @@ The Proxmox node runs on laptop hardware. Lid-close and sleep behavior were conf
 - Enable traffic-shaping pipes if the gaming/latency queue model is meant to be active.
 - Add sanitized diagrams or cropped screenshots with sensitive fields blurred.
 - Add an example change log for a firewall rule review.
-- Reserve stable DHCP addresses for portfolio-facing internal services so dashboard links do not drift.
+- Reserve stable DHCP addresses for internal services so dashboard links do not drift.

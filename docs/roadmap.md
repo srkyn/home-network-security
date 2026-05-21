@@ -4,11 +4,11 @@ This roadmap is intentionally conservative because the network is production, no
 
 ## Now
 
-- Keep Uptime Kuma status page healthy.
 - Fix any `NaN` or unknown values in dashboard widgets.
+- Create or keep a Uptime Kuma internal status page slug for dashboard use.
 - Use API widgets only with read-only or least-purpose credentials.
 - Ingest `home_network_status.prom` into VictoriaMetrics/Grafana where practical.
-- Replace the temporary laptop off-host copy with a durable off-host backup target.
+- Add a temporary laptop off-host copy if no durable target exists, then replace it with a durable off-host backup target.
 - Run and document restore tests before broad updates.
 - Keep Homepage as the primary dashboard and Glance retired.
 
@@ -34,6 +34,18 @@ This roadmap is intentionally conservative because the network is production, no
 - Add docker-socket-proxy for safe container status visibility.
 - Add internal-only Caddy names.
 - Consider Authelia or authentik only after core operations are stable.
+
+## Research/Lab Only
+
+- Security Onion.
+- Arkime.
+- T-Pot.
+- Atomic Red Team.
+- OpenCTI/MISP.
+- Broad Nuclei scanning.
+- Aggressive Greenbone scanning.
+
+These may be useful learning tools, but they are not current production controls for the daily home network.
 
 ## Gates
 

@@ -1,5 +1,7 @@
 # HomeNet Operations Dashboard
 
+This file is retained as a compatibility pointer. The canonical dashboard document is [homepage-operations-dashboard.md](homepage-operations-dashboard.md).
+
 ## Purpose
 
 Homepage is the primary internal dashboard for the production home network. It is designed to show status, recovery posture, security signals, and launch links from one place without exposing privileged admin interfaces.
@@ -133,9 +135,9 @@ Not embedded:
 | Widget | Status | Notes |
 |---|---|---|
 | OPNsense read-only view | Partial | Prefer exporter-backed metrics or a narrow read-only API path. |
-| Proxmox read-only widget | Implemented internally | Uses a dedicated token, not a root password. |
-| Grafana widget | Implemented internally | Uses a dedicated account; permissions should stay documented and reviewed. |
-| Uptime Kuma status page widget | Implemented internally | Internal status page only. |
+| Proxmox read-only widget | Planned | Add only with a dedicated least-privilege token. |
+| Grafana widget | Planned | Add with a dedicated account or safe unauthenticated internal view only after review. |
+| Uptime Kuma status page widget | Planned | Internal status page only; never publish push URLs. |
 | NetAlertX widget | Partial | Summary values only; do not publish device details. |
 | CrowdSec widget | Planned | Defer unless API access is safe and internal. |
 | Docker status | Planned | Use docker-socket-proxy later, never raw socket. |

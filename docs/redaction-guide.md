@@ -12,6 +12,11 @@ This repository is public, so it documents the security project without exposing
 - Screenshots showing sensitive firewall, DHCP, DNS, ARP, VPN, or user/session data.
 - Screenshots with visible browser tabs, bookmarks, profiles, downloads, extensions, or desktop notifications.
 - Raw dashboard configuration files if they contain tokens, labels, internal host maps, or private hostnames.
+- Uptime Kuma push URLs.
+- API widget configuration that includes tokens or bearer strings.
+- Raw NetBox exports or database dumps.
+- Trivy reports that expose exact image names, internal registry names, private paths, or sensitive package context.
+- Syft SBOMs that expose exact private image names, internal registry names, or sensitive file paths.
 
 ## Usually Redact
 
@@ -46,8 +51,15 @@ Before publishing a screenshot:
 ## Dashboard And Telemetry Files
 
 - Do not publish live dashboard screenshots unless internal IPs, tokens, usernames, browser chrome, and sensitive labels are cropped or blurred.
+- Dashboard screenshots must be cropped or blurred before publication.
+- Browser tabs, bookmarks, profile icons, extensions, downloads, and desktop notifications must not appear in screenshots.
+- Internal IPs should be minimized or generalized unless an RFC1918 example is needed for sanitized architecture.
 - Do not publish raw `status.json` if it contains sensitive hostnames, exact internal maps, usernames, or private paths.
 - Do not publish `.prom` files if labels reveal sensitive hostnames, device names, exact internal topology, or user behavior.
+- Do not publish Uptime Kuma push URLs.
+- Do not publish API widget config with tokens.
+- Do not publish raw NetBox exports.
+- Do not publish Trivy/Syft reports until exact image names, private registry names, private paths, and sensitive labels are removed.
 - Public docs should use roles such as `firewall`, `Proxmox host`, `secops-core`, `canary host`, and `access point` instead of a full private host map.
 - Sanitized diagrams are preferred over browser screenshots.
 

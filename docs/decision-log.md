@@ -2,152 +2,172 @@
 
 This file uses an ADR-style format. It is sanitized for public sharing.
 
-## ADR-001: Treat The Network As Production Home Network
+## ADR-001: Treat As Production Home Network, Not Disposable Homelab
 
 - Status: Accepted.
 - Context: The network supports daily work, school, gaming, streaming, phones, and security learning.
-- Decision: Treat it as production, not a disposable homelab.
-- Why: Stability, rollback, and access safety matter more than maximal tool deployment.
-- Tradeoffs: Slower rollout for risky controls.
-- Validation: Risky items such as VLAN migration, remote access, endpoint agents, and container updates were staged instead of rushed.
+- Decision: Treat changes like production operations.
+- Why: Stability, rollback, and access safety matter more than maximum tool count.
+- Tradeoffs: Risky controls roll out more slowly.
+- Validation: VLAN migration, remote access, endpoint agents, and broad container updates were staged instead of rushed.
 - Follow-up: Keep using stop points and backup gates.
 
-## ADR-002: Keep OPNsense As Enforcement Point And Proxmox As Visibility/Control Plane
+## ADR-002: Keep OPNsense As Enforcement Point
 
 - Status: Accepted.
-- Context: The Proxmox host runs on limited laptop hardware.
-- Decision: OPNsense enforces policy; Proxmox provides visibility and recovery services.
-- Why: The network should keep routing if the control plane is down.
-- Tradeoffs: Some same-subnet controls require host firewalls or future VLANs.
-- Validation: No traffic was routed through the Proxmox services.
-- Follow-up: Add segmentation later with controlled testing.
+- Context: Routing, firewalling, DNS, DHCP, NAT, and edge controls belong in the network control point.
+- Decision: Keep OPNsense as the system that enforces policy.
+- Why: It keeps enforcement centralized and reviewable.
+- Tradeoffs: Some visibility still requires external logging and dashboards.
+- Validation: Normal traffic continues through OPNsense, not Proxmox.
+- Follow-up: Keep firewall changes backed up and documented.
 
-## ADR-003: Disable UPnP/NAT-PMP
+## ADR-003: Keep Proxmox As Visibility/Control Plane
+
+- Status: Accepted.
+- Context: The Proxmox node can host support services without sitting inline.
+- Decision: Use Proxmox for dashboards, logs, metrics, inventory, canary signal, reports, and recovery checks.
+- Why: Visibility should not become a packet-path dependency.
+- Tradeoffs: Same-subnet controls remain limited until segmentation work.
+- Validation: If Proxmox is unavailable, OPNsense should still route the network.
+- Follow-up: Keep service backups and startup order documented.
+
+## ADR-004: Disable UPnP/NAT-PMP
 
 - Status: Accepted.
 - Context: Automatic port mapping increases exposure.
 - Decision: Disable UPnP/NAT-PMP.
-- Why: Exposure reduction is worth the possible manual work for gaming or peer apps.
-- Tradeoffs: Some games or consoles may need manual troubleshooting.
+- Why: Exposure reduction is worth the possible manual troubleshooting for gaming or peer apps.
+- Tradeoffs: Some applications may require manual port review later.
 - Validation: Internet and core services remained available after the change.
-- Follow-up: Revisit only if a specific application requires it.
+- Follow-up: Revisit only for a specific justified application.
 
-## ADR-004: Disable Proxmox rpcbind
+## ADR-005: Disable rpcbind After Confirming NFS Was Not Used
 
 - Status: Accepted.
 - Context: rpcbind was present, but NFS was not in use.
 - Decision: Disable and mask rpcbind.
-- Why: Remove unneeded listening service.
+- Why: Remove an unnecessary listening service.
 - Tradeoffs: NFS would need rpcbind restored if added later.
 - Validation: Storage and containers continued working.
 - Follow-up: Recheck before adding NFS storage.
 
-## ADR-005: Add NetBox As Source Of Truth
+## ADR-006: Add NetBox As Source Of Truth
 
 - Status: Accepted.
-- Context: DHCP reservations, planned VLANs, and core services needed documentation.
-- Decision: Add NetBox for documentation only.
-- Why: Source of truth should come before automation.
-- Tradeoffs: Another service to back up.
-- Validation: NetBox was installed, populated minimally, and backed up.
-- Follow-up: Keep NetBox internal-only and do not let it push firewall changes yet.
+- Context: Core services, reservations, and planned segmentation needed one documented source.
+- Decision: Add NetBox for inventory and planning, not firewall automation.
+- Why: Source-of-truth documentation should come before automation.
+- Tradeoffs: Another stateful service to back up.
+- Validation: NetBox was installed, minimally populated, and backed up.
+- Follow-up: Keep NetBox internal-only and avoid raw exports in public docs.
 
-## ADR-006: Use OpenCanary For High-Signal Deception
+## ADR-007: Add OpenCanary/Lures For High-Signal Deception
 
 - Status: Accepted.
 - Context: Normal home use should not touch fake internal services.
-- Decision: Use OpenCanary as a fake internal host.
-- Why: Canary interaction is rare and meaningful.
+- Decision: Use OpenCanary and simple lures as high-signal tripwires.
+- Why: Canary interaction is rare and easier to reason about than noisy alert streams.
 - Tradeoffs: Monitoring must avoid polling fake services.
 - Validation: Canary alert path was tested.
-- Follow-up: Keep canary monitoring to host ping unless intentionally testing.
+- Follow-up: Do not publish raw lure paths or logs.
 
-## ADR-007: Use Trivy/Syft For Supply-Chain Visibility, Not Auto-Remediation
+## ADR-008: Add Trivy/Syft For Visibility, Not Auto-Remediation
 
 - Status: Accepted.
-- Context: CVE counts can create noise.
-- Decision: Generate reports and SBOMs, then triage.
-- Why: Blind updates can break services and still not reduce practical risk.
+- Context: Vulnerability and SBOM visibility are useful, but blind updates can break services.
+- Decision: Generate reports and SBOMs for triage.
+- Why: Recovery and context matter more than reacting to every CVE count.
 - Tradeoffs: Requires manual review.
-- Validation: Findings were triaged; no CISA KEV matches were found at the time.
+- Validation: Reports were generated and KEV matching was reviewed.
 - Follow-up: Update one service at a time behind backup/restore gates.
 
-## ADR-008: Defer WireGuard
+## ADR-009: Defer WireGuard/Tailscale Until Remote Access Path Is Tested
 
 - Status: Accepted.
-- Context: Upstream double NAT/private WAN made inbound testing uncertain.
-- Decision: Defer WireGuard until upstream path and outside testing are ready.
-- Why: Remote access must not expose admin consoles or break production.
+- Context: Remote access can expose management paths if rushed.
+- Decision: Defer WireGuard/Tailscale/overlay decision until testing is clear.
+- Why: No remote access is better than poorly understood remote access.
 - Tradeoffs: No self-hosted remote admin path yet.
 - Validation: No WAN exposure was added.
-- Follow-up: Choose OPNsense WireGuard, Tailscale, NetBird, or Headscale later.
+- Follow-up: Compare OPNsense WireGuard, Tailscale, NetBird, and Headscale later.
 
-## ADR-009: Defer Fleet/osquery
+## ADR-010: Defer Endpoint Agents Until One Endpoint Pilot Is Selected
 
 - Status: Accepted.
-- Context: Endpoint telemetry was useful but not urgent enough to deploy broadly.
-- Decision: Defer until a one-endpoint pilot is selected.
-- Why: Avoid alert fatigue and unnecessary endpoint changes.
+- Context: Broad endpoint telemetry can create noise and support burden.
+- Decision: Defer Fleet/osquery or similar rollout until one endpoint pilot is chosen.
+- Why: Learn on one endpoint before touching the household.
 - Tradeoffs: Less endpoint visibility for now.
 - Validation: No broad agents were deployed.
-- Follow-up: Pilot exactly one endpoint first.
+- Follow-up: Pilot exactly one endpoint.
 
-## ADR-010: Defer VLAN Migration
+## ADR-011: Defer VLAN Migration Until Physical Path And Rollback Are Confirmed
 
 - Status: Accepted.
-- Context: Full segmentation risks Wi-Fi, DHCP, DNS, and management access.
-- Decision: Document VLANs first; do not migrate household devices yet.
-- Why: Lockout risk is high without a controlled physical path.
+- Context: VLANs affect DHCP, DNS, Wi-Fi, admin access, and normal household use.
+- Decision: Document VLAN goals but defer migration.
+- Why: Segmentation is valuable, but lockout risk is real.
 - Tradeoffs: Flat LAN risk remains.
-- Validation: No network access broke.
-- Follow-up: Test one wired lab VLAN before Wi-Fi migration.
+- Validation: No access broke during the sprint.
+- Follow-up: Test one wired VLAN before Wi-Fi migration.
 
-## ADR-011: Move From Glance To Homepage For Dashboard
+## ADR-012: Replace Glance With Homepage Operations Dashboard
 
 - Status: Accepted.
 - Context: The dashboard needed live status, recovery state, and security state.
-- Decision: Promote Homepage as the primary dashboard and retire Glance from active use.
-- Why: Homepage better matched the dashboard model.
+- Decision: Promote Homepage as the active operations dashboard and retire Glance from active service.
+- Why: Homepage better matched the command-center model.
 - Tradeoffs: Slightly more configuration complexity.
 - Validation: Homepage became primary; Glance backups and rollback notes were preserved.
-- Follow-up: Continue improving widgets and public-safe documentation.
+- Follow-up: Keep public docs clear that Glance is historical.
 
-## ADR-012: Use Custom API Widgets/status.json Before Privileged API Integrations
+## ADR-013: Use Local Operations Status Feed Before Privileged API Widgets
 
 - Status: Accepted.
-- Context: API widgets can require credentials.
-- Decision: Start with a local sanitized `status.json` feed.
-- Why: It gives live status without exposing secrets.
+- Context: API widgets can require tokens or privileged credentials.
+- Decision: Start with a sanitized local operations status feed and Prometheus-style metrics.
+- Why: Useful live status does not require broad credentials.
 - Tradeoffs: Less rich than native API widgets.
-- Validation: Homepage consumed local status feeds.
+- Validation: Homepage consumed local status data.
 - Follow-up: Add read-only widgets only where least privilege is practical.
 
-## ADR-013: Do Not Mount Raw Docker Socket
+## ADR-014: Avoid Raw Docker Socket; Plan docker-socket-proxy Later
 
 - Status: Accepted.
-- Context: Raw Docker socket access is effectively high privilege.
+- Context: Raw Docker socket access is effectively administrative control over containers.
 - Decision: Do not mount it into Homepage.
 - Why: Dashboard compromise should not become container control.
 - Tradeoffs: No automatic Docker discovery yet.
-- Validation: Homepage runs without raw socket access.
+- Validation: Homepage runs without raw Docker socket access.
 - Follow-up: Consider docker-socket-proxy with write methods disabled.
 
-## ADR-014: Link OPNsense/Proxmox/FreshTomato, Do Not Embed Them
+## ADR-015: Link OPNsense/Proxmox/FreshTomato Admin UIs Instead Of Embedding Them
 
 - Status: Accepted.
-- Context: Privileged admin UIs have their own security boundaries.
-- Decision: Link admin consoles; do not iframe them or weaken clickjacking protections.
+- Context: Privileged admin UIs have their own authentication and browser protections.
+- Decision: Link admin consoles; do not iframe them.
 - Why: Embedding privileged panels adds risk and brittleness.
 - Tradeoffs: One extra click to open admin consoles.
 - Validation: Dashboard uses launch links, not privileged iframes.
 - Follow-up: Keep this rule even if internal reverse proxy names are added.
 
-## ADR-015: Require Backup/Restore Gate Before Container Updates
+## ADR-016: Require Backup/Restore Gate Before Container Updates
 
 - Status: Accepted.
-- Context: Container updates can break dashboards, logs, metrics, and monitoring.
-- Decision: Do not update containers broadly until backup and restore checks are proven.
-- Why: Recovery matters more than chasing every CVE immediately.
-- Tradeoffs: Some patches wait for a maintenance window.
+- Context: Container updates can break dashboards, logs, metrics, monitoring, and inventory.
+- Decision: Do not update containers broadly until backups and restore checks are proven.
+- Why: Recovery matters more than chasing every version immediately.
+- Tradeoffs: Some updates wait for a maintenance window.
 - Validation: Updates were planned one service at a time.
-- Follow-up: Continue update order: low-state services first, stateful services after backups.
+- Follow-up: Low-state services first; stateful services after backups.
+
+## ADR-017: Use Temporary Laptop/Off-Host Copy Only As Interim Backup Step
+
+- Status: Accepted.
+- Context: A temporary off-host copy is better than local-only backups, but it is not a durable backup architecture.
+- Decision: Use laptop/off-host copies only as an interim step if no SSD/NAS target exists.
+- Why: The project needs recoverability without pretending a stopgap is complete.
+- Tradeoffs: Temporary copies require manual discipline.
+- Validation: Recovery state is tracked as a dashboard signal and roadmap gap.
+- Follow-up: Add durable off-host backup and run restore validation.
