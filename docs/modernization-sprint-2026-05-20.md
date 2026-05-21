@@ -104,23 +104,23 @@ Phase 5 created freshness checks and backup templates:
 
 Container updates were deferred because the off-host backup and restore gate had not passed.
 
-## Homepage Cockpit Migration
+## HomeNet Operations Dashboard Migration
 
-Homepage was tested as a replacement for the older Glance front door. It became the better fit because the goal had shifted from a simple launchpad to a cockpit with live operational state, recovery state, and security state.
+Homepage was tested as a replacement for the older Glance front door. It became the better fit because the goal had shifted from a simple launchpad to a dashboard with live operational state, recovery state, and security state.
 
 The migration:
 
 - Promoted Homepage to the primary internal dashboard.
 - Retired Glance from active use.
 - Preserved Glance backups and rollback notes.
-- Added local cockpit feeds:
-  - `/cockpit/status.json`
-  - `/cockpit/home_network_status.prom`
-  - `/cockpit/phase-notes.html`
+- Added local dashboard feeds:
+  - `/dashboard/status.json`
+  - `/dashboard/home_network_status.prom`
+  - `/dashboard/phase-notes.html`
 
 ## Live Widget Pack
 
-The cockpit gained live status areas:
+The dashboard gained live status areas:
 
 - Mission Status for Internet, DNS, Firewall, Proxmox, Backups, and Security.
 - Security Snapshot for canary hits, known laptop failed-login watch, KEV matches, and Trivy severity counts.
@@ -160,7 +160,7 @@ Raw Docker socket access was not added. Privileged admin UIs were not embedded.
 - Backups and restore tests made changes recoverable.
 - OpenCanary created high-signal detection.
 - Trivy/Syft added supply-chain visibility without panic updating.
-- Homepage turned scattered tools into one daily cockpit.
+- Homepage turned scattered tools into one daily dashboard.
 
 ## Risks Reduced
 

@@ -4,7 +4,7 @@
   <img src="./docs/assets/opnsense-home-network-security.svg" alt="OPNsense Home Network Security project banner" width="100%">
 </p>
 
-Sanitized documentation for a production home network security modernization project: OPNsense at the edge, a lightweight Proxmox security control plane, Homepage as the internal cockpit, Grafana for deep metrics, Uptime Kuma for availability, NetBox as the source of truth, VictoriaMetrics/VictoriaLogs for telemetry, OpenCanary for deception, and Trivy/Syft for supply-chain visibility.
+Sanitized documentation for a production home network security modernization project: OPNsense at the edge, a lightweight Proxmox security control plane, Homepage as the internal dashboard, Grafana for deep metrics, Uptime Kuma for availability, NetBox as the source of truth, VictoriaMetrics/VictoriaLogs for telemetry, OpenCanary for deception, and Trivy/Syft for supply-chain visibility.
 
 The network supports normal daily use: work, school, gaming, streaming, phones, access points, monitoring, and security learning. That changed the engineering standard. This is not treated as a disposable homelab. Stability, rollback, backup validation, low latency, and no lockouts are first-class requirements.
 
@@ -14,8 +14,8 @@ This public repository does not contain secrets, raw configuration exports, publ
 
 - OPNsense remains the enforcement point for routing, firewall policy, DNS, DHCP, and edge security.
 - Proxmox runs the lightweight visibility and control-plane services without sitting inline with network traffic.
-- Homepage is the primary internal HomeNet Cockpit.
-- Glance was tested and used earlier, then retired from active use after the Homepage cockpit migration.
+- Homepage is the primary internal HomeNet Operations Dashboard.
+- Glance was tested and used earlier, then retired from active use after the Homepage dashboard migration.
 - Grafana remains the deep metrics and dashboarding layer.
 - Uptime Kuma remains the uptime and alerting view.
 - NetBox is the source of truth for core inventory and planned segmentation.
@@ -27,7 +27,7 @@ This public repository does not contain secrets, raw configuration exports, publ
 - Proxmox rpcbind was disabled after confirming NFS was not in use.
 - WireGuard, endpoint agents, and VLAN migration were deferred until controlled testing paths are ready.
 - No dashboard or admin console is exposed to the public internet.
-- No raw Docker socket is mounted into the cockpit.
+- No raw Docker socket is mounted into the dashboard.
 - OPNsense, Proxmox, and access point admin UIs are linked, not embedded.
 
 ## Current Architecture
@@ -45,7 +45,7 @@ flowchart LR
     Proxmox --> Canary["canary host"]
     Proxmox --> Kuma["Uptime Kuma"]
 
-    Core --> Homepage["Homepage Cockpit"]
+    Core --> Homepage["HomeNet Operations Dashboard"]
     Core --> Grafana["Grafana"]
     Core --> Metrics["VictoriaMetrics"]
     Core --> Logs["VictoriaLogs"]
@@ -58,7 +58,7 @@ flowchart LR
     Homepage -- "status.json / .prom" --> Grafana
 ```
 
-## HomeNet Cockpit
+## HomeNet Operations Dashboard
 
 Homepage is now the daily front door. It is internal-only and designed to answer the first operational questions quickly:
 
@@ -69,15 +69,15 @@ Homepage is now the daily front door. It is internal-only and designed to answer
 - Are backups fresh?
 - Is security quiet?
 
-The cockpit serves sanitized local feeds:
+The dashboard serves sanitized local feeds:
 
-- `/cockpit/status.json`
-- `/cockpit/home_network_status.prom`
-- `/cockpit/phase-notes.html`
+- `/dashboard/status.json`
+- `/dashboard/home_network_status.prom`
+- `/dashboard/phase-notes.html`
 
 The dashboard includes Mission Status, Security Snapshot, Recovery Snapshot, observability links, inventory links, and documentation links. Privileged admin interfaces are not embedded in iframes.
 
-See [docs/homepage-cockpit.md](docs/homepage-cockpit.md).
+See [docs/homepage-dashboard.md](docs/homepage-dashboard.md).
 
 ## Control Areas
 
@@ -87,12 +87,12 @@ See [docs/homepage-cockpit.md](docs/homepage-cockpit.md).
 | DNS security | Firewall-managed DNS path with resolver hardening | DNS flow and operating model |
 | Exposure reduction | UPnP/NAT-PMP disabled; inbound exposure avoided | Decision log |
 | Control plane | Proxmox hosts visibility services, not inline enforcement | Control-plane design |
-| Cockpit | Homepage primary; Glance retired | Cockpit documentation |
+| Dashboard | Homepage primary; Glance retired | Dashboard documentation |
 | Deep metrics | Grafana backed by metrics collection | Operations workflow |
 | Uptime | Uptime Kuma monitors core services | Daily review workflow |
 | Source of truth | NetBox tracks core assets and planned segmentation | Current-state snapshot |
 | Logs | VictoriaLogs stores firewall and canary evidence | Control-plane design |
-| Metrics | VictoriaMetrics supports time-series visibility | Cockpit roadmap |
+| Metrics | VictoriaMetrics supports time-series visibility | Dashboard roadmap |
 | Asset awareness | NetAlertX tracks unknown-device signals | Operations workflow |
 | Deception | OpenCanary provides high-signal alerts | Security controls |
 | Supply-chain visibility | Trivy and Syft produce reports and SBOMs | Sprint narrative |
@@ -133,7 +133,8 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/current-state.md`: current sanitized architecture and control-plane snapshot.
 - `docs/modernization-sprint-2026-05-20.md`: modernization sprint narrative.
 - `docs/decision-log.md`: architecture decision records.
-- `docs/homepage-cockpit.md`: Homepage cockpit architecture and rules.
+- `docs/homepage-dashboard.md`: Homepage dashboard architecture and rules.
+- `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.
 - `docs/proxmox-security-control-plane.md`: lightweight Proxmox control-plane case study.
@@ -142,4 +143,4 @@ This repo explains the work without publishing live secrets, exact host maps, or
 
 ## Status
 
-Live production home-network project. Documentation is sanitized and reflects the Homepage cockpit migration and modernization sprint completed on 2026-05-20.
+Live production home-network project. Documentation is sanitized and reflects the Homepage dashboard migration and modernization sprint completed on 2026-05-20.

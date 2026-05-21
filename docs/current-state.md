@@ -1,10 +1,10 @@
 # Current State
 
-This snapshot describes the sanitized public state of the production home network after the 2026-05-20 modernization sprint and Homepage cockpit migration.
+This snapshot describes the sanitized public state of the production home network after the 2026-05-20 modernization sprint and Homepage dashboard migration.
 
 ## Executive Summary
 
-The network is treated as a production home network, not a disposable lab. OPNsense remains the enforcement point, Proxmox provides visibility and recovery services, and Homepage is now the primary internal cockpit.
+The network is treated as a production home network, not a disposable lab. OPNsense remains the enforcement point, Proxmox provides visibility and recovery services, and Homepage is now the primary internal dashboard.
 
 The biggest gains were exposure reduction, backup discipline, source-of-truth documentation, deception signal, supply-chain visibility, and a single internal operational dashboard. The biggest remaining gaps are durable off-host backups, staged Proxmox admin hardening, remote access planning, endpoint telemetry pilot, and VLAN migration.
 
@@ -21,7 +21,7 @@ flowchart LR
     PVE --> Canary["canary host"]
     PVE --> Kuma["Uptime Kuma"]
 
-    Core --> Homepage["Homepage Cockpit"]
+    Core --> Homepage["HomeNet Operations Dashboard"]
     Core --> Grafana["Grafana"]
     Core --> NetBox["NetBox"]
     Core --> VM["VictoriaMetrics"]
@@ -41,9 +41,9 @@ flowchart LR
 - OpenCanary provides deception.
 - NetAlertX provides local device-awareness signals.
 
-## Current Dashboard/Cockpit
+## Current Dashboard/Dashboard
 
-Homepage is the primary HomeNet Cockpit. Glance was retired from active use after the migration and preserved only as rollback material.
+Homepage is the primary HomeNet Operations Dashboard. Glance was retired from active use after the migration and preserved only as rollback material.
 
 Homepage provides:
 
@@ -51,7 +51,7 @@ Homepage provides:
 - Security Snapshot: canary hits, known laptop failed-login watch, CISA KEV matches, Trivy critical findings, Trivy high findings.
 - Recovery Snapshot: Proxmox backup age, secops-core backup age, NetBox backup age, Trivy freshness, Syft freshness, off-host copy state, restore test state.
 - Links to admin consoles without embedding privileged UIs.
-- Local sanitized feeds at `/cockpit/status.json`, `/cockpit/home_network_status.prom`, and `/cockpit/phase-notes.html`.
+- Local sanitized feeds at `/dashboard/status.json`, `/dashboard/home_network_status.prom`, and `/dashboard/phase-notes.html`.
 
 ## Current Security Controls
 

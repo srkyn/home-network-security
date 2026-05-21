@@ -10,7 +10,7 @@ The Proxmox node hosts a small set of services:
 
 | Service Area | Role | Why It Exists |
 |---|---|---|
-| Homepage Cockpit | Daily front door | Mission Status, security snapshot, recovery snapshot, and launch links |
+| HomeNet Operations Dashboard | Daily front door | Mission Status, security snapshot, recovery snapshot, and launch links |
 | Uptime Kuma | Availability monitoring | Core service health and status history |
 | Grafana | Deep metrics | Rich panels for metrics and trends |
 | VictoriaMetrics | Metrics backend | Time-series storage/query path |
@@ -37,7 +37,7 @@ flowchart LR
     PVE --> Canary["canary host<br/>OpenCanary"]
     PVE --> Kuma["Uptime Kuma"]
 
-    Core --> Cockpit["Homepage Cockpit"]
+    Core --> Dashboard["HomeNet Operations Dashboard"]
     Core --> Grafana["Grafana"]
     Core --> Metrics["VictoriaMetrics"]
     Core --> Logs["VictoriaLogs"]
@@ -48,7 +48,7 @@ flowchart LR
 
     OPN -- "firewall events" --> Logs
     Canary -- "canary events" --> Logs
-    Status --> Cockpit
+    Status --> Dashboard
     Status --> Grafana
 ```
 
@@ -62,7 +62,7 @@ The firewall remains the system that makes network policy decisions. The Proxmox
 
 The always-on services run on limited hardware, so low-overhead services are preferred. Docker is used inside the service container where it helps package dashboards and telemetry tools. The Proxmox host itself stays focused on virtualization.
 
-### Homepage As The Cockpit
+### Homepage As The Dashboard
 
 Homepage is the primary front door because the operator needs a bird's-eye view:
 
@@ -76,7 +76,7 @@ Privileged admin consoles are linked, not embedded.
 
 ### status.json And Prometheus Text Metrics
 
-The cockpit uses local sanitized feeds:
+The dashboard uses local sanitized feeds:
 
 - `status.json` for live widget values.
 - `home_network_status.prom` for metrics that can later be graphed.

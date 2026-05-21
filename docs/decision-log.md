@@ -102,12 +102,12 @@ This file uses an ADR-style format. It is sanitized for public sharing.
 - Validation: No network access broke.
 - Follow-up: Test one wired lab VLAN before Wi-Fi migration.
 
-## ADR-011: Move From Glance To Homepage For Cockpit Dashboard
+## ADR-011: Move From Glance To Homepage For Dashboard
 
 - Status: Accepted.
 - Context: The dashboard needed live status, recovery state, and security state.
-- Decision: Promote Homepage as the primary cockpit and retire Glance from active use.
-- Why: Homepage better matched the cockpit model.
+- Decision: Promote Homepage as the primary dashboard and retire Glance from active use.
+- Why: Homepage better matched the dashboard model.
 - Tradeoffs: Slightly more configuration complexity.
 - Validation: Homepage became primary; Glance backups and rollback notes were preserved.
 - Follow-up: Continue improving widgets and public-safe documentation.
@@ -139,7 +139,7 @@ This file uses an ADR-style format. It is sanitized for public sharing.
 - Decision: Link admin consoles; do not iframe them or weaken clickjacking protections.
 - Why: Embedding privileged panels adds risk and brittleness.
 - Tradeoffs: One extra click to open admin consoles.
-- Validation: Cockpit uses launch links, not privileged iframes.
+- Validation: Dashboard uses launch links, not privileged iframes.
 - Follow-up: Keep this rule even if internal reverse proxy names are added.
 
 ## ADR-015: Require Backup/Restore Gate Before Container Updates
