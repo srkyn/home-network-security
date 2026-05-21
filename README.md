@@ -134,6 +134,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/modernization-sprint-2026-05-20.md`: modernization sprint narrative.
 - `docs/decision-log.md`: architecture decision records.
 - `docs/homepage-dashboard.md`: Homepage dashboard architecture and rules.
+- `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.
 - `docs/proxmox-security-control-plane.md`: lightweight Proxmox control-plane case study.
