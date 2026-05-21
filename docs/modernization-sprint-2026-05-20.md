@@ -113,10 +113,7 @@ The migration:
 - Promoted Homepage to the primary internal dashboard.
 - Retired Glance from active use.
 - Preserved Glance backups and rollback notes.
-- Added local dashboard feeds:
-  - `/dashboard/status.json`
-  - `/dashboard/home_network_status.prom`
-  - `/dashboard/phase-notes.html`
+- Added local sanitized dashboard feeds for status, metrics, and phase notes.
 
 ## Live Widget Pack
 
