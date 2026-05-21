@@ -69,11 +69,7 @@ Homepage is now the daily front door. It is internal-only and designed to answer
 - Are backups fresh?
 - Is security quiet?
 
-The dashboard serves sanitized local feeds:
-
-- `/dashboard/status.json`
-- `/dashboard/home_network_status.prom`
-- `/dashboard/phase-notes.html`
+The dashboard serves sanitized local status, metrics, and notes feeds for widgets and operations review. Public docs describe the feed purpose rather than publishing live internal paths.
 
 The dashboard includes Mission Status, Security Snapshot, Recovery Snapshot, observability links, inventory links, and documentation links. Privileged admin interfaces are not embedded in iframes.
 

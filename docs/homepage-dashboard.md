@@ -70,9 +70,9 @@ The Recovery Snapshot summarizes:
 - Off-host copy state.
 - Restore test state.
 
-## status.json
+## Status JSON Feed
 
-`/dashboard/status.json` is a sanitized local feed for Homepage widgets. It contains operational status values, not secrets.
+The status JSON feed is a sanitized local feed for Homepage widgets. It contains operational status values, not secrets.
 
 It should not contain:
 
@@ -84,9 +84,9 @@ It should not contain:
 - MAC addresses.
 - Exact full inventory.
 
-## home_network_status.prom
+## Metrics Text Feed
 
-`/dashboard/home_network_status.prom` exposes selected text-format metrics for dashboarding and later ingestion into the metrics stack.
+The metrics text feed exposes selected text-format metrics for dashboarding and later ingestion into the metrics stack.
 
 Examples of safe metric classes:
 

@@ -51,7 +51,7 @@ Homepage provides:
 - Security Snapshot: canary hits, known laptop failed-login watch, CISA KEV matches, Trivy critical findings, Trivy high findings.
 - Recovery Snapshot: Proxmox backup age, secops-core backup age, NetBox backup age, Trivy freshness, Syft freshness, off-host copy state, restore test state.
 - Links to admin consoles without embedding privileged UIs.
-- Local sanitized feeds at `/dashboard/status.json`, `/dashboard/home_network_status.prom`, and `/dashboard/phase-notes.html`.
+- Local sanitized status, metrics, and notes feeds for dashboard widgets and operations review.
 
 ## Current Security Controls
 
