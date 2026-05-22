@@ -23,14 +23,14 @@ Glance was retired from active service after the Homepage migration. Glance back
 
 ## Internal Access Locations
 
-These are RFC1918/private internal addresses used as examples for local runbooks. They are not public internet endpoints.
+These are private internal paths used as examples for local runbooks. Exact internal addresses are intentionally not published.
 
 | Role | Internal example |
 |---|---|
-| HomeNet Operations Dashboard | `http://192.168.2.60:8080/` |
-| Operations status feed | `http://192.168.2.60:8080/cockpit/status.json` |
-| Prometheus-style status metrics | `http://192.168.2.60:8080/cockpit/home_network_status.prom` |
-| Phase notes | `http://192.168.2.60:8080/cockpit/phase-notes.html` |
+| HomeNet Operations Dashboard | Private RFC1918 host / dashboard port |
+| Operations status feed | Local firewall-managed DNS path / `cockpit/status.json` |
+| Prometheus-style status metrics | Local firewall-managed DNS path / `cockpit/home_network_status.prom` |
+| Phase notes | Local firewall-managed DNS path / `cockpit/phase-notes.html` |
 
 Public docs should describe these by role unless an internal RFC1918 example is needed. Avoid overusing the internal path name; call it the operations status feed.
 
