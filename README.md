@@ -14,7 +14,7 @@ This public repository does not contain secrets, raw configuration exports, publ
 
 - OPNsense remains the enforcement point for routing, firewall policy, DNS, DHCP, and edge security.
 - Proxmox runs the lightweight visibility and control-plane services without sitting inline with network traffic.
-- Homepage is the primary internal HomeNet Operations Dashboard / Command Center.
+- Homepage is the primary internal HomeNet Operations Dashboard.
 - Homepage serves an operations status feed, Prometheus-style status metrics, and phase notes for internal widgets.
 - Glance was tested and used earlier, then retired from active use after the Homepage dashboard migration.
 - Grafana remains the deep metrics and dashboarding layer.

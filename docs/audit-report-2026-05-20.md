@@ -50,7 +50,7 @@ It now presents the project as **Home Network Security Control Plane** and summa
 ## Consistency Audit
 
 - Glance: corrected to historical/retired wording where needed.
-- Homepage/dashboard/operations dashboard/command center: standardized around HomeNet Operations Dashboard and Homepage Operations Dashboard.
+- Homepage/dashboard/operations dashboard language standardized around HomeNet Operations Dashboard and Homepage Operations Dashboard.
 - cockpit/status feeds: public language now says operations status feed and Prometheus-style status metrics; internal paths are only shown in the dashboard doc as RFC1918 examples.
 - OPNsense/Proxmox/FreshTomato: documented as enforcement, visibility/control plane, and AP/admin-link layer respectively.
 - NetBox/Uptime Kuma/Grafana/VictoriaMetrics/VictoriaLogs/NetAlertX/OpenCanary/Trivy/Syft/CrowdSec: included in README, dashboard, operations, roadmap, and website suggestions.

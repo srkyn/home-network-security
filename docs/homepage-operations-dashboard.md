@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Homepage is the primary internal HomeNet Operations Dashboard and Command Center for the production home network. It gives one fast view of mission health, security signals, recovery posture, documentation, and launch links without making the dashboard an enforcement point.
+Homepage is the primary internal HomeNet Operations Dashboard for the production home network. It gives one fast view of service health, security signals, recovery posture, documentation, and launch links without making the dashboard an enforcement point.
 
 ## Why Homepage Replaced Glance
 
@@ -15,7 +15,7 @@ Glance was retired from active service after the Homepage migration. Glance back
 - Mission Status: Internet, DNS, Firewall, Proxmox, Backups, Security.
 - Security Snapshot: canary hits, Proxmox failed-login watch, CISA KEV matches, Trivy Critical, Trivy High.
 - Recovery Snapshot: Proxmox backup age, secops-core backup age, NetBox backup age, Trivy freshness, Syft freshness, off-host copy status, restore test status.
-- Command Center: launch links for common operations.
+- Operations links: common review and maintenance paths.
 - Observability: Grafana, VictoriaMetrics, VictoriaLogs, and Uptime Kuma paths.
 - Inventory: NetBox and NetAlertX review paths.
 - Launchpad: internal-only admin and service links.
