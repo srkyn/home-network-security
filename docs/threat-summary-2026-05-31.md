@@ -1,5 +1,7 @@
 # Home Network Security Live Threat Summary
 
+> **Superseded telemetry note:** This was an early partial telemetry summary. OPNsense and CrowdSec collection were later completed more fully in [firewall-crowdsec-2026-05-31.md](firewall-crowdsec-2026-05-31.md) and [firewall-crowdsec-v2-2026-05-31.md](firewall-crowdsec-v2-2026-05-31.md). Keep this file as historical context, not the current firewall/CrowdSec source of truth.
+
 **Date:** 2026-05-31
 **Collection mode:** read-only, public-safe, partial authenticated telemetry
 **Collection window:** point-in-time network checks, Proxmox API status, VictoriaLogs sample, and public GitHub workflow audit
