@@ -10,7 +10,7 @@ This note records a small live telemetry sample from the firewall and security s
 
 Recent firewall telemetry was reachable through the OPNsense diagnostics API. The sample showed normal stateful firewall activity with a smaller set of blocked inbound events. The blocked events were primarily WAN-side private-network traffic being rejected by the firewall's private-network block rule, plus one default-deny/state-violation event.
 
-CrowdSec status, alert, decision, bouncer, and machine table endpoints were reachable through the OPNsense plugin API. At collection time, the alert and decision tables returned zero active rows. The bouncer and machine tables each returned one registered, valid, recently seen integration.
+CrowdSec status, alert, decision, bouncer, and machine table endpoints were reachable through the OPNsense plugin API. At collection time, the alert and decision tables returned zero active rows. The bouncer and machine tables each returned one registered, valid, recently seen integration. The OPNsense GUI confirmed the same result on the CrowdSec Alerts and Decisions pages.
 
 ## Firewall Sample
 
@@ -60,8 +60,19 @@ This is a good sign: the firewall is enforcing expected perimeter behavior and r
 | CrowdSec bouncer table endpoint | Reachable, 1 registered bouncer |
 | CrowdSec machine table endpoint | Reachable, 1 registered machine |
 | CrowdSec metrics endpoint through plugin API | Not available on tested path |
+| OPNsense CrowdSec GUI alerts page | Reachable, no rows |
+| OPNsense CrowdSec GUI decisions page | Reachable, no rows |
+| CrowdSec community/CAPI decisions | Not shown in GUI; requires shell `cscli decisions list -a` |
 
 The important operational finding is that CrowdSec was not merely skipped by the collector. The plugin exposed the decision and alert tables, and those tables were empty during the sample window. That is a useful quiet-state baseline.
+
+The OPNsense Decisions page includes an important note: decisions coming from CrowdSec CAPI/community blocklists do not appear in that GUI table. The command to validate those from the firewall shell is:
+
+```sh
+cscli decisions list -a -o json
+```
+
+That shell-only output was not collected in this public update because SSH access from the collection host was not available, and publishing raw decision rows would require an additional sanitization pass.
 
 Detailed row values were not published because CrowdSec bouncer and machine rows can include operational identifiers, internal addressing, and timestamps. Public documentation should continue to publish counts and state, not raw table payloads.
 
@@ -92,7 +103,9 @@ This document excludes:
 
 ## Follow-Up
 
-1. Add a safe CrowdSec summary collector that reports only counts, scenario names, and status.
-2. Keep raw telemetry artifacts local and out of Git.
-3. Add a dashboard card for sanitized firewall/CrowdSec status once the local feed is stable.
-4. Re-run this check after the next firewall or CrowdSec plugin update.
+1. Run `cscli decisions list -a -o json` locally on the firewall shell for CAPI/community decision validation.
+2. Sanitize any shell-collected decision output before publishing counts or scenario summaries.
+3. Add a safe CrowdSec summary collector that reports only counts, scenario names, and status.
+4. Keep raw telemetry artifacts local and out of Git.
+5. Add a dashboard card for sanitized firewall/CrowdSec status once the local feed is stable.
+6. Re-run this check after the next firewall or CrowdSec plugin update.
