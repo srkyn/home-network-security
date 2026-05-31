@@ -4,9 +4,9 @@
   <img src="./docs/assets/opnsense-home-network-security.svg" alt="OPNsense Home Network Security project banner" width="100%">
 </p>
 
-Sanitized documentation for a production-style home network security modernization project: OPNsense as the enforcement layer, Proxmox as the visibility/control-plane layer, and Homepage as the internal HomeNet Operations Dashboard. The project brings logs, metrics, inventory, deception, uptime checks, vulnerability/SBOM visibility, and recovery tracking into one practical operating model.
+This is sanitized documentation from my home network security modernization project: OPNsense at the edge, Proxmox for lightweight visibility and control-plane services, and Homepage as the internal HomeNet Operations Dashboard. The goal is to show the operating model, not expose the network.
 
-The network supports normal daily use: work, school, gaming, streaming, phones, access points, monitoring, and security learning. That changed the engineering standard. This is not treated as a disposable homelab. Stability, rollback, backup validation, low latency, and no lockouts are first-class requirements.
+The network has to support normal daily use: work, school, gaming, streaming, phones, access points, monitoring, and security learning. That changes the standard. It cannot be a disposable lab where breaking things is fine. Stability, rollback, backup validation, low latency, and no lockouts matter.
 
 This public repository does not contain secrets, raw configuration exports, public IP addresses, MAC addresses, serial numbers, full host inventory, browser screenshots, API keys, passwords, tokens, private hostnames, or sensitive screenshots.
 
