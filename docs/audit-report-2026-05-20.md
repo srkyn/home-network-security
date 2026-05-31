@@ -12,7 +12,6 @@ Follow-up on 2026-05-21: the live portfolio site now presents the project as "Ho
 |---|---|---:|---:|---:|---|
 | `README.md` | Public project overview | Mostly | Yes | Low | Updated for Homepage Operations Dashboard, feeds, known gaps, and safety posture. |
 | `SECURITY.md` | Sensitive-info reporting policy | Yes | No | Low | Already warns against configs, credentials, and live network testing. |
-| `LINKEDIN.md` | LinkedIn copy | Partial | Later | Low | Mentions Homepage but older first section still OPNsense-only; new `project-update` doc supersedes it. |
 | `docs/current-state.md` | Current architecture snapshot | Partial | Yes | Low | Fixed dashboard heading and adjusted restore/off-host status to avoid overclaiming. |
 | `docs/design-rationale.md` | Decision rationale | Partial | Yes | Low | Added production framing, UPnP/NAT-PMP, rpcbind, status feeds, Docker socket, admin UI, backup, and VLAN rationale. |
 | `docs/operations.md` | Daily/weekly operations | Partial | Yes | Low | Added Homepage-first flow, weekly checks, and explicit change gates. |
@@ -24,7 +23,7 @@ Follow-up on 2026-05-21: the live portfolio site now presents the project as "Ho
 | `docs/roadmap.md` | Planned work | Partial | Yes | Low | Added current/next/later/research grouping and conservative gates. |
 | `docs/redaction-guide.md` | Public redaction rules | Partial | Yes | Low | Added dashboard, feed, `.prom`, Uptime Kuma, NetBox, Trivy/Syft warnings. |
 | `docs/website-update-suggestions-2026-05-20.md` | Website copy | New | No | Low | Created updated card, blurbs, tags, diagram and screenshot guidance. |
-| `docs/project-update-2026-05-20.md` | Launch/update copy | New | No | Low | Created GitHub, LinkedIn, case-study, README, and resume copy. |
+| `docs/project-update-2026-05-20.md` | Project update copy | New | No | Low | Created sanitized case-study and README copy. |
 | `docs/assets/*` | Public images/diagrams | Mostly | Review before reuse | Medium | Existing screenshot names are marked sanitized; do not add raw dashboard screenshots. |
 | `docs/architecture.md` | Older architecture note | Partial | Later | Low | Still useful but less current than README/current-state/control-plane docs. |
 | `docs/evidence-screenshots.md` | Screenshot evidence index | Not deeply changed | Review before publish | Medium | Keep screenshot crop/blur checks strict. |

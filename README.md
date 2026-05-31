@@ -154,7 +154,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/homepage-operations-dashboard.md`: Homepage Operations Dashboard architecture and rules.
 - `docs/website-update-suggestions-2026-05-20.md`: suggested public website copy.
 - `docs/portfolio-website-integration-2026-05-21.md`: notes on the live portfolio integration and sanitized website presentation.
-- `docs/project-update-2026-05-20.md`: launch/update copy for GitHub, LinkedIn, resume, and case-study use.
+- `docs/project-update-2026-05-20.md`: sanitized project update and case-study notes.
 - `docs/audit-report-2026-05-20.md`: final repo and website audit report.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/threat-summary-2026-05-31.md`: read-only live threat and operations summary.

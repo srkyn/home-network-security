@@ -6,7 +6,7 @@ Documented the 2026-05-20 modernization sprint for my daily home network securit
 
 The update covers NetBox inventory, Uptime Kuma checks, Victoria logs/metrics, OpenCanary signal, Trivy/Syft visibility, backup/freshness tracking, and the controls intentionally deferred: VLAN migration, remote access, endpoint agents, aggressive scanners, auto-remediation, WAN exposure, and raw Docker socket access.
 
-## Medium LinkedIn Post
+## Medium Project Update
 
 I updated my public home network security project to reflect a recent modernization sprint.
 
