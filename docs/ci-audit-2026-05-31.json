@@ -1,0 +1,110 @@
+{
+  "timestamp_utc": "2026-05-31T15:07:10.190303Z",
+  "context": "Megalodon GitHub Actions workflow IOC and suspicious-pattern audit",
+  "repos_requested": [
+    "stigpilot",
+    "lapse",
+    "relic",
+    "IdentityRiskGraph",
+    "splunk-detection-content",
+    "undertaker",
+    "browser-bailiff",
+    "home-network-security"
+  ],
+  "clone_status": [
+    {
+      "repo": "stigpilot",
+      "cloned": true
+    },
+    {
+      "repo": "lapse",
+      "cloned": true
+    },
+    {
+      "repo": "relic",
+      "cloned": true
+    },
+    {
+      "repo": "IdentityRiskGraph",
+      "cloned": true
+    },
+    {
+      "repo": "splunk-detection-content",
+      "cloned": true
+    },
+    {
+      "repo": "undertaker",
+      "cloned": true
+    },
+    {
+      "repo": "browser-bailiff",
+      "cloned": true
+    },
+    {
+      "repo": "home-network-security",
+      "cloned": true
+    }
+  ],
+  "workflow_files_audited": 7,
+  "finding_count": 0,
+  "clean": true,
+  "findings": [],
+  "workflows": [
+    {
+      "repo": "browser-bailiff",
+      "file": "ci.yml",
+      "hash": "3c737ba0c901",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "IdentityRiskGraph",
+      "file": "python-tests.yml",
+      "hash": "98b672a9dab0",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "lapse",
+      "file": "ci.yml",
+      "hash": "db6541b0a146",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "relic",
+      "file": "ci.yml",
+      "hash": "1404398a31d7",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "splunk-detection-content",
+      "file": "validate.yml",
+      "hash": "226d32cc7700",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "stigpilot",
+      "file": "tests.yml",
+      "hash": "14808fb7ba2f",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    },
+    {
+      "repo": "undertaker",
+      "file": "ci.yml",
+      "hash": "24bc6f1333d5",
+      "status": "CLEAN",
+      "patterns": [],
+      "unknown_actions": []
+    }
+  ]
+}
