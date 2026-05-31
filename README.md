@@ -83,13 +83,7 @@ See [docs/homepage-operations-dashboard.md](docs/homepage-operations-dashboard.m
 
 ## Current Status
 
-Active controls include OPNsense firewall/DNS enforcement, CrowdSec, Homepage, Uptime Kuma, NetBox, VictoriaMetrics, VictoriaLogs, NetAlertX, OpenCanary, Trivy/Syft reporting, and backup/freshness checks.
-
-Inactive or deferred controls include full VLAN migration, AP VLAN trunking, remote access, broad endpoint telemetry, automatic remediation, broad vulnerability scanning, and heavy packet-capture/SIEM lab stacks in production.
-
-Known gaps are documented directly: durable off-host backup and restore validation, remote access decision, one endpoint pilot, staged segmentation, and safer future API/widget integrations.
-
-Intentionally not exposed: public dashboards, WAN admin consoles, raw Docker socket access, privileged admin iframes, secrets, raw configs, full inventories, and sensitive screenshots.
+Live production home-network security project with ongoing telemetry collection. Threat summaries and CI integrity audits are published on a rolling basis from real OPNsense, Proxmox, VictoriaLogs, and CrowdSec deployments. Documentation is sanitized — no raw configuration exports, credentials, internal IP addresses, MAC addresses, or network topology are published. Last updated: 2026-05-31.
 
 ## Control Areas
 
@@ -152,10 +146,6 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/modernization-sprint-2026-05-20.md`: modernization sprint narrative.
 - `docs/decision-log.md`: architecture decision records.
 - `docs/homepage-operations-dashboard.md`: Homepage Operations Dashboard architecture and rules.
-- `docs/website-update-suggestions-2026-05-20.md`: suggested public website copy.
-- `docs/portfolio-website-integration-2026-05-21.md`: notes on the live portfolio integration and sanitized website presentation.
-- `docs/project-update-2026-05-20.md`: sanitized project update and case-study notes.
-- `docs/audit-report-2026-05-20.md`: final repo and website audit report.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/threat-summary-2026-05-31.md`: read-only live threat and operations summary.
 - `docs/firewall-crowdsec-2026-05-31.md`: sanitized OPNsense firewall and CrowdSec telemetry sample.
@@ -169,4 +159,4 @@ This repo explains the work without publishing live secrets, exact host maps, or
 
 ## Status
 
-Live production home-network project. Documentation is sanitized and updated on an ongoing basis. This repository is intentionally documentation-only: no raw configuration exports, secrets, host maps, IP addresses, or sensitive screenshots are published. The public record covers architectural intent, control rationale, design decisions, and known gaps — not operational detail.
+Live production home-network security project with ongoing telemetry collection. Threat summaries and CI integrity audits are published on a rolling basis from real OPNsense, Proxmox, VictoriaLogs, and CrowdSec deployments. Documentation is sanitized — no raw configuration exports, credentials, internal IP addresses, MAC addresses, or network topology are published. Last updated: 2026-05-31.
