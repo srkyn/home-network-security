@@ -157,6 +157,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/project-update-2026-05-20.md`: launch/update copy for GitHub, LinkedIn, resume, and case-study use.
 - `docs/audit-report-2026-05-20.md`: final repo and website audit report.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
+- `docs/threat-summary-2026-05-31.md`: public-safe read-only threat and operations summary from live checks.
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.
 - `docs/proxmox-security-control-plane.md`: lightweight Proxmox control-plane case study.
