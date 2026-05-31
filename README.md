@@ -165,6 +165,4 @@ This repo explains the work without publishing live secrets, exact host maps, or
 
 ## Status
 
-Live production home-network project. Documentation is sanitized and reflects the Homepage dashboard migration and modernization sprint completed on 2026-05-20.
-
-The public portfolio site now presents this project as **Home Network Security Control Plane** and links back to this repository from `https://srkyn.com/`. The website copy intentionally stays role-based and does not expose private dashboards, internal service URLs, raw feeds, exact inventories, or screenshots that reveal operational detail.
+Live production home-network project. Documentation is sanitized and updated on an ongoing basis. This repository is intentionally documentation-only: no raw configuration exports, secrets, host maps, IP addresses, or sensitive screenshots are published. The public record covers architectural intent, control rationale, design decisions, and known gaps — not operational detail.
