@@ -143,9 +143,10 @@ This repo explains the work without publishing live secrets, exact host maps, or
 
 - `README.md`: project overview and public-facing case study.
 - `docs/current-state.md`: current sanitized architecture and control-plane snapshot.
+- `docs/results.md`: concise summary of public-safe outcomes and remaining gaps.
 - `docs/modernization-sprint-2026-05-20.md`: modernization sprint narrative.
 - `docs/decision-log.md`: architecture decision records.
-- `docs/homepage-operations-dashboard.md`: Homepage Operations Dashboard architecture and rules.
+- `docs/homepage-operations-dashboard.md`: canonical Homepage Operations Dashboard architecture and rules.
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/threat-summary-2026-05-31.md`: read-only live threat and operations summary.
 - `docs/firewall-crowdsec-2026-05-31.md`: sanitized OPNsense firewall and CrowdSec telemetry sample.
@@ -157,6 +158,3 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/redaction-guide.md`: rules for safely sharing network security work.
 - `SECURITY.md`: guidance for reporting security concerns about the repository.
 
-## Status
-
-Live production home-network security project with ongoing telemetry collection. Threat summaries and CI integrity audits are published on a rolling basis from real OPNsense, Proxmox, VictoriaLogs, and CrowdSec deployments. Documentation is sanitized — no raw configuration exports, credentials, internal IP addresses, MAC addresses, or network topology are published. Last updated: 2026-05-31.
