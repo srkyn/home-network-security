@@ -10,7 +10,7 @@ This note records a small live telemetry sample from the firewall and security s
 
 Recent firewall telemetry was reachable through the OPNsense diagnostics API. The sample showed normal stateful firewall activity with a smaller set of blocked inbound events. The blocked events were primarily WAN-side private-network traffic being rejected by the firewall's private-network block rule, plus one default-deny/state-violation event.
 
-CrowdSec status was reachable through the OPNsense plugin API, but detailed alerts and decision-list endpoints were not available through the same API path during this collection window. No public document should infer that CrowdSec is inactive from that alone; it means only that this API collection path did not expose detailed decision data.
+CrowdSec status, alert, decision, bouncer, and machine table endpoints were reachable through the OPNsense plugin API. At collection time, the alert and decision tables returned zero active rows. The bouncer and machine tables each returned one registered, valid, recently seen integration.
 
 ## Firewall Sample
 
@@ -55,11 +55,17 @@ This is a good sign: the firewall is enforcing expected perimeter behavior and r
 | Check | Result |
 |---|---|
 | CrowdSec plugin status endpoint | Reachable |
-| CrowdSec alerts endpoint through plugin API | Not available on tested path |
-| CrowdSec decisions endpoint through plugin API | Not available on tested path |
+| CrowdSec alerts table endpoint | Reachable, 0 rows |
+| CrowdSec decisions table endpoint | Reachable, 0 rows |
+| CrowdSec bouncer table endpoint | Reachable, 1 registered bouncer |
+| CrowdSec machine table endpoint | Reachable, 1 registered machine |
 | CrowdSec metrics endpoint through plugin API | Not available on tested path |
 
-The next safe improvement is to add a dedicated, read-only local collection path for CrowdSec summary data. That should be done without publishing API keys, raw decision payloads, offender addresses, or internal firewall details.
+The important operational finding is that CrowdSec was not merely skipped by the collector. The plugin exposed the decision and alert tables, and those tables were empty during the sample window. That is a useful quiet-state baseline.
+
+Detailed row values were not published because CrowdSec bouncer and machine rows can include operational identifiers, internal addressing, and timestamps. Public documentation should continue to publish counts and state, not raw table payloads.
+
+The next safe improvement is to add a dedicated, read-only local collection path for CrowdSec summary data in the internal operations dashboard. That should be done without publishing API keys, raw decision payloads, offender addresses, or internal firewall details.
 
 ## Operational Interpretation
 
