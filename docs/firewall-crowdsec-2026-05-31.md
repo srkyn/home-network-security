@@ -136,6 +136,10 @@ The telemetry supports the current design direction:
 - Add richer CrowdSec visibility later through a least-privilege, local-only collection path.
 - Continue using the operations dashboard for status visibility and Grafana/Victoria-backed views for deeper metrics.
 
+The CrowdSec deployment does not need more noisy features to be useful. Its strongest current role is lightweight edge reputation and behavior-based blocking: OPNsense enforces, CrowdSec supplies decisions, and the bouncer applies them at the firewall.
+
+For a plain-English explanation of the setup, see [CrowdSec in Plain English](crowdsec-plain-english.md).
+
 ## Public Redaction Rules Used
 
 This document excludes:

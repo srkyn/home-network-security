@@ -159,6 +159,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/evidence-screenshots.md`: sanitized proof screenshots.
 - `docs/threat-summary-2026-05-31.md`: read-only live threat and operations summary.
 - `docs/firewall-crowdsec-2026-05-31.md`: sanitized OPNsense firewall and CrowdSec telemetry sample.
+- `docs/crowdsec-plain-english.md`: simple explanation of how CrowdSec supports the firewall.
 - `docs/ci-audit-2026-05-31.json`: GitHub Actions workflow integrity audit for Megalodon-style CI/CD indicators.
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.
