@@ -8,10 +8,9 @@ This document records which OPNsense and CrowdSec data paths returned usable dat
 
 ## Credential Handling
 
-- OPNsense API credentials were present with key length 80 and secret length 80.
-- Credential source used by the collector: local key file.
-- CrowdSec LAPI key present in environment: no.
-- Credential values were not printed or committed.
+- OPNsense API credentials were validated before collection.
+- CrowdSec LAPI credentials were not available to this collector.
+- Credential values and local credential storage details were not printed or committed.
 - A temporary SSH public key was used only for shell `cscli` collection and removed afterward; the key no longer authenticated after cleanup.
 
 ## Endpoint Probe Results
