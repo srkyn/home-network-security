@@ -83,7 +83,7 @@ See [docs/homepage-operations-dashboard.md](docs/homepage-operations-dashboard.m
 
 ## Current Status
 
-Live production home-network security project with ongoing telemetry collection. Threat summaries and CI integrity audits are published on a rolling basis from real OPNsense, Proxmox, VictoriaLogs, and CrowdSec deployments. Documentation is sanitized — no raw configuration exports, credentials, internal IP addresses, MAC addresses, or network topology are published. Last updated: 2026-05-31.
+Live production home-network project. Documentation is sanitized and updated on an ongoing basis. This repository is intentionally documentation-only: no raw configuration exports, secrets, host maps, IP addresses, or sensitive screenshots are published. The public record covers architectural intent, control rationale, design decisions, and known gaps, not operational detail. Last updated: 2026-05-31.
 
 ## Control Areas
 
