@@ -160,4 +160,3 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/active-defense-performance-guardrails-2026-06-07.md`: sanitized active-defense, containment, and performance-guardrail follow-up.
 - `docs/redaction-guide.md`: rules for safely sharing network security work.
 - `SECURITY.md`: guidance for reporting security concerns about the repository.
-
