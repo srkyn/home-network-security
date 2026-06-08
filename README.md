@@ -83,7 +83,7 @@ See [docs/homepage-operations-dashboard.md](docs/homepage-operations-dashboard.m
 
 ## Current Status
 
-Live production home-network project. Documentation is sanitized and updated on an ongoing basis. This repository is intentionally documentation-only: no raw configuration exports, secrets, host maps, IP addresses, or sensitive screenshots are published. The public record covers architectural intent, control rationale, design decisions, and known gaps, not operational detail. Last updated: 2026-05-31.
+Live production home-network project. Documentation is sanitized and updated on an ongoing basis. This repository is intentionally documentation-only: no raw configuration exports, secrets, host maps, IP addresses, or sensitive screenshots are published. The public record covers architectural intent, control rationale, design decisions, and known gaps, not operational detail. Last updated: 2026-06-07.
 
 ## Control Areas
 
@@ -101,7 +101,9 @@ Live production home-network project. Documentation is sanitized and updated on 
 | Metrics | VictoriaMetrics supports time-series visibility | Dashboard roadmap |
 | Asset awareness | NetAlertX tracks unknown-device signals | Operations workflow |
 | Deception | OpenCanary provides high-signal alerts | Security controls |
+| Active defense | Evidence-first watchlist, deception, tarpit, and reversible containment workflow | Sanitized June follow-up |
 | Supply-chain visibility | Trivy and Syft produce reports and SBOMs | Sprint narrative |
+| Performance guardrails | Grafana-backed thresholds protect the security stack from consuming the host | Sanitized June follow-up |
 | Backups | Local backups, temporary off-host copy, restore-test workflow | Recovery status and roadmap |
 | Remote access | Deferred because double NAT and testing path require planning | Decision log |
 | Segmentation | VLANs documented but not migrated | Roadmap |
@@ -155,6 +157,7 @@ This repo explains the work without publishing live secrets, exact host maps, or
 - `docs/roadmap.md`: current, next, and later work.
 - `docs/operations.md`: daily and weekly operating workflow.
 - `docs/proxmox-security-control-plane.md`: lightweight Proxmox control-plane case study.
+- `docs/active-defense-performance-guardrails-2026-06-07.md`: sanitized active-defense, containment, and performance-guardrail follow-up.
 - `docs/redaction-guide.md`: rules for safely sharing network security work.
 - `SECURITY.md`: guidance for reporting security concerns about the repository.
 

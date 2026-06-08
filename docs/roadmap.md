@@ -8,6 +8,8 @@ This roadmap is intentionally conservative because the network is production, no
 - Create or keep a Uptime Kuma internal status page slug for dashboard use.
 - Use API widgets only with read-only or least-purpose credentials.
 - Ingest `home_network_status.prom` into VictoriaMetrics/Grafana where practical.
+- Keep performance guardrails green before adding new monitoring collectors.
+- Watch dashboard process-hygiene metrics after reducing redundant dashboard-side probes.
 - Add a temporary laptop off-host copy if no durable target exists, then replace it with a durable off-host backup target.
 - Run and document restore tests before broad updates.
 - Keep Homepage as the primary dashboard and Glance retired.
@@ -23,6 +25,8 @@ This roadmap is intentionally conservative because the network is production, no
 - Decide between OPNsense WireGuard, Tailscale, NetBird, or Headscale for remote access.
 - Pilot Fleet/osquery on exactly one endpoint.
 - Review NetBox update workflow through the official container stack.
+- Run an active-defense drill using sanitized evidence capture and dry-run containment only.
+- Confirm AP-side MAC-deny rollback procedure before relying on it during an incident.
 
 ## Later
 
@@ -44,6 +48,7 @@ This roadmap is intentionally conservative because the network is production, no
 - OpenCTI/MISP.
 - Broad Nuclei scanning.
 - Aggressive Greenbone scanning.
+- Hack-back or retaliatory actions.
 
 These may be useful learning tools, but they are not current production controls for the daily home network.
 
@@ -56,4 +61,5 @@ Before risky changes:
 - Restore test is documented.
 - Rollback command is written.
 - Monitoring is green.
+- Performance guardrails are green.
 - Only one major service changes at a time.

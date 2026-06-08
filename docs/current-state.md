@@ -1,12 +1,12 @@
 # Current State
 
-This snapshot describes the sanitized public state of the production home network after the 2026-05-20 modernization sprint and Homepage dashboard migration.
+This snapshot describes the sanitized public state of the production home network after the 2026-05-20 modernization sprint, Homepage dashboard migration, and 2026-06-07 active-defense/performance follow-up.
 
 ## Executive Summary
 
 The network is treated as a production home network, not a disposable lab. OPNsense remains the enforcement point, Proxmox provides visibility and recovery services, and Homepage is now the primary internal dashboard.
 
-The biggest gains were exposure reduction, backup discipline, source-of-truth documentation, deception signal, supply-chain visibility, and a single internal operational dashboard. The biggest remaining gaps are durable off-host backups, staged Proxmox admin hardening, remote access planning, endpoint telemetry pilot, and VLAN migration.
+The biggest gains were exposure reduction, backup discipline, source-of-truth documentation, deception signal, supply-chain visibility, a single internal operational dashboard, reversible containment planning, and performance guardrails for the monitoring stack. The biggest remaining gaps are durable off-host backups, staged Proxmox admin hardening, remote access planning, endpoint telemetry pilot, and VLAN migration.
 
 ## Current Architecture
 
@@ -40,6 +40,7 @@ flowchart LR
 - VictoriaMetrics and VictoriaLogs provide metrics and logs.
 - OpenCanary provides deception.
 - NetAlertX provides local device-awareness signals.
+- Active-defense workflows combine evidence capture, deception/tarpit signals, watchlist review, and reversible containment planning.
 
 ## Current Dashboard
 
@@ -62,6 +63,9 @@ Homepage provides:
 - Trivy and Syft provide report-based visibility.
 - Uptime Kuma monitors core availability.
 - NetAlertX supports unknown-device review.
+- Watchlist and containment workflows are evidence-first and reversible.
+- AP-side MAC deny is preferred for confirmed unwanted wireless clients because same-subnet peer traffic may bypass firewall enforcement on a flat LAN.
+- Grafana performance guardrails track sustained monitoring-stack CPU, memory, host CPU, and I/O wait.
 - Admin interfaces remain internal-only.
 - Raw Docker socket is not mounted into Homepage.
 - Privileged admin UIs are linked, not embedded.
@@ -86,6 +90,7 @@ Homepage provides:
 - Proxmox firewall is not in restrictive mode.
 - Docker visibility should use docker-socket-proxy later, not the raw socket.
 - Some API widgets require carefully scoped credentials and should stay least-privilege.
+- Flat-LAN containment remains limited until segmentation work is complete.
 
 ## What Is Intentionally Not Enabled
 
@@ -98,3 +103,4 @@ Homepage provides:
 - Aggressive vulnerability scanning.
 - Full-packet-capture tooling on the production LAN.
 - Privileged admin-console iframe embedding.
+- Hack-back, retaliation, or targeting systems outside the owned network.

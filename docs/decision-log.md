@@ -171,3 +171,33 @@ This file uses an ADR-style format. It is sanitized for public sharing.
 - Tradeoffs: Temporary copies require manual discipline.
 - Validation: Recovery state is tracked as a dashboard signal and roadmap gap.
 - Follow-up: Add durable off-host backup and run restore validation.
+
+## ADR-018: Use Evidence-First Active Defense, Not Retaliation
+
+- Status: Accepted.
+- Context: Deception, watchlists, and containment can improve defensive response, but offensive retaliation creates legal, ethical, and operational risk.
+- Decision: Use active defense only inside the owned network: detect, enrich, preserve evidence, delay, and contain.
+- Why: Strong defense does not require hack-back.
+- Tradeoffs: Some adversary attribution remains limited.
+- Validation: Containment workflow is dry-run first, reversible, and documented.
+- Follow-up: Keep public docs free of raw lure paths, watchlist identifiers, and operational blocklists.
+
+## ADR-019: Prefer AP-Side Containment For Confirmed Unwanted Wireless Clients
+
+- Status: Accepted.
+- Context: On a flat LAN, firewall rules can block routed traffic but cannot reliably stop same-subnet peer traffic.
+- Decision: Prefer AP-side MAC deny for confirmed unwanted wireless clients, with rollback documented before use.
+- Why: Association control is closer to the wireless access point and avoids pretending IP-only quarantine is complete.
+- Tradeoffs: MAC randomization and shared devices require careful confirmation.
+- Validation: The workflow requires evidence capture and manual confirmation before blocking.
+- Follow-up: VLAN segmentation remains the better long-term control.
+
+## ADR-020: Add Performance Guardrails Before Adding More Visibility
+
+- Status: Accepted.
+- Context: Security tooling runs on limited home hardware and should not degrade daily use.
+- Decision: Track sustained monitoring-stack CPU, memory, host CPU, I/O wait, and dashboard process hygiene.
+- Why: Visibility that consumes the network is a failure mode.
+- Tradeoffs: Some thresholds are conservative and may need tuning.
+- Validation: Guardrails were added without adding heavy collectors.
+- Follow-up: Keep reducing redundant polling before adding new services.
