@@ -24,6 +24,8 @@ If Mission Status is green except Backups, the expected next action is backup im
 - Review Uptime Kuma monitors.
 - Review NetAlertX for unknown or newly seen devices.
 - Review OpenCanary events and investigate any interaction with the fake host.
+- Review active-defense watchlist signals only as evidence, not as automatic block instructions.
+- Review performance guardrails before adding collectors, dashboards, or scheduled scans.
 - Review firewall log denies for repeated unexpected traffic.
 - Review CrowdSec decisions and blocklist behavior.
 - Confirm DNS services are healthy.
@@ -36,6 +38,7 @@ If Mission Status is green except Backups, the expected next action is backup im
 - Check dashboard configuration backup status.
 - Confirm no temporary firewall rules were left open.
 - Confirm no temporary dashboard/API credentials were left in config.
+- Confirm no temporary quarantine or watchlist block remains without a written reason.
 - Note any network changes worth documenting.
 
 ## Monthly Review
@@ -73,6 +76,8 @@ Do not stack multiple risky changes before testing.
 - No raw Docker socket mounting.
 - No WAN exposure for dashboards or admin UIs.
 - No broad scanners or endpoint agents without a scoped test plan.
+- No retaliatory actions or targeting systems outside the owned network.
+- No containment action without rollback.
 
 ## Validation Tests
 
@@ -85,6 +90,8 @@ Use simple tests after changes:
 - Confirm Uptime Kuma monitors are not falsely alarming.
 - Confirm Grafana, NetBox, and logs still load.
 - Confirm canary fake services are not being repeatedly polled by monitoring.
+- Confirm dashboard widgets are not duplicating low-level probes already covered by Grafana or Uptime Kuma.
+- Confirm performance guardrails are still quiet after observability changes.
 - After Proxmox updates, confirm containers autostart and the dashboard loads.
 
 ## Control Plane Daily Flow
@@ -105,6 +112,7 @@ The control plane is not a traffic enforcement point. If the Proxmox node is dow
 - Do not schedule intrusive vulnerability scans by default.
 - Keep scanning scoped to owned internal targets.
 - Avoid heavy always-on tools unless resource headroom justifies them.
+- Prefer Grafana/Uptime Kuma health checks over duplicate dashboard-side polling when both would measure the same service.
 - Do not update containers until the backup/restore gate passes.
 
 ## Backup Handling
@@ -137,3 +145,11 @@ When a suspicious event appears, capture:
 - Action taken.
 - Result.
 - Follow-up needed.
+
+Containment-specific notes should also include:
+
+- Evidence source.
+- Whether the device is confirmed owned, unknown, or unwanted.
+- Whether the device touched deception, tarpit, firewall, or admin surfaces.
+- Why observe, quarantine, or block was chosen.
+- Rollback path.
